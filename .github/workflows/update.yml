@@ -1,0 +1,36 @@
+name: Aggiorna lista Sportzonline ogni giorno
+
+on:
+  schedule:
+    - cron: '0 12 * * *'   # ogni giorno alle 12:00 UTC
+  workflow_dispatch:       # per avviare manualmente dall’interfaccia GitHub
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clona il repository
+      uses: actions/checkout@v4
+
+    - name: Configura Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Installa richieste (requests)
+      run: pip install requests
+
+    - name: Esegui lo script Python
+      run: python miaSonline.py
+
+    - name: Configura credenziali Git
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Fai commit e push se ci sono modifiche
+      run: |
+        git add sportzonline_lista.html
+        git commit -m "Aggiornamento automatico lista Sportzonline" || echo "Nessuna modifica da committare"
+        git push
