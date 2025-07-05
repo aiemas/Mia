@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Eventi e Canali Sportzonline</title>
+<style>
+body { font-family: sans-serif; margin: 20px; }
+input[type="text"] { width: 100%%; padding: 10px; margin-bottom: 20px; font-size: 16px; }
+
+h1 { margin-bottom: 20px; }
+h2 { margin-top: 40px; color: #333; }
+div { margin-bottom: 10px; }
+
+button {
+  margin: 3px;
+  padding: 6px 10px;
+  font-size: 14px;
+  display: inline-block;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-event { background-color: #2196F3; }    /* blu */
+.btn-channel { background-color: #4CAF50; }  /* verde */
+</style>
+</head>
+<body>
+<h1>Eventi e Canali - Sportzonline</h1>
+
+<input type="text" id="searchInput" placeholder="Cerca evento o canale...">
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const searchInput = document.getElementById('searchInput');
+  searchInput.addEventListener('input', function() {
+    const filter = searchInput.value.toLowerCase();
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => {
+      const text = button.textContent.toLowerCase();
+      button.parentElement.style.display = text.includes(filter) ? '' : 'none';
+    });
+  });
+});
+</script>
+<h2>Eventi</h2>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/bra/br2.php', '_blank')">19:00   Corinthians Legends x Boca Juniors Legends</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd9.php', '_blank')">20:00   France W x England W</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/pt/sporttv1.php', '_blank')">20:00   France W x England W</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/bra/br6.php', '_blank')">20:00   Remo x CuiabÃ¡</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/pt/sporttv5.php', '_blank')">20:45   San Lorenzo x Quilmes</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd1.php', '_blank')">21:00   Real Madrid x Borussia Dortmund</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd2.php', '_blank')">21:00   Real Madrid x Borussia Dortmund</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd3.php', '_blank')">21:00   Real Madrid x Borussia Dortmund</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd4.php', '_blank')">21:00   Real Madrid x Borussia Dortmund</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd6.php', '_blank')">21:00   Real Madrid x Borussia Dortmund</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd7.php', '_blank')">21:00   Real Madrid x Borussia Dortmund</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd8.php', '_blank')">21:00   Real Madrid x Borussia Dortmund</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/pt/eleven1.php', '_blank')">21:00   Real Madrid x Borussia Dortmund</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/bra/br1.php', '_blank')">21:00   Real Madrid x Borussia Dortmund</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/bra/br4.php', '_blank')">21:00   Vasco da Gama x Wanderers</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd5.php', '_blank')">00:15   Charlotte x Orlando City SC</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/bra/br5.php', '_blank')">00:30   Amazonas x Athletico-PR</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd5.php', '_blank')">09:25   Formula 3: Feature Race</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd7.php', '_blank')">09:25   Formula 3: Feature Race</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/bra/br3.php', '_blank')">09:25   Formula 3: Feature Race</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/pt/sporttv4.php', '_blank')">10:50   ELMS: 4 Hours Rome</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd1.php', '_blank')">11:00   Tour de France - Stage 2</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd5.php', '_blank')">11:00   F2 British Feature Race</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd7.php', '_blank')">11:00   F2 British Feature Race</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/bra/br3.php', '_blank')">11:00   F2 British Feature Race</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/pt/sporttv2.php', '_blank')">11:00   Wimbledon</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/pt/sporttv3.php', '_blank')">11:00   Wimbledon</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd3.php', '_blank')">12:30   VfB Oldenburg x Hamburger SV</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/pt/sporttv5.php', '_blank')">12:55   Porsche Supercup</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd9.php', '_blank')">14:00   Rangers x Club Brugge</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd5.php', '_blank')">14:55   British F1 Grand Prix</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd7.php', '_blank')">14:55   British F1 Grand Prix</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/bra/br3.php', '_blank')">14:55   British F1 Grand Prix</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/pt/sporttv4.php', '_blank')">15:00   Golden European League: Final Four - 3rd & 4th Places</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd11.php', '_blank')">17:00   Norway W x Finland W</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/pt/sporttv4.php', '_blank')">17:50   Golden European League: Final Four - Final</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd1.php', '_blank')">18:30   MLB: Yankees @ Mets</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd10.php', '_blank')">18:45   Pumas UNAM x LeganÃ©s</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/bra/br1.php', '_blank')">20:00   Cruzeiro x Banfield</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd11.php', '_blank')">20:00   Switzerland W x Iceland W</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/pt/sporttv1.php', '_blank')">20:00   Switzerland W x Iceland W</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd1.php', '_blank')">21:45   MLB: Astros @ Dodgers</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/bra/br2.php', '_blank')">22:30   Botafogo SP x Novorizontino</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd6.php', '_blank')">23:00   Newell's Old Boys x Once Caldas</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd5.php', '_blank')">00:00   USA x Mexico</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd10.php', '_blank')">00:00   USA x Mexico</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/pt/sporttv1.php', '_blank')">00:00   USA x Mexico</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/bra/br6.php', '_blank')">00:00   USA x Mexico</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd6.php', '_blank')">01:30   MazatlÃ¡n x Cruz Azul</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd1.php', '_blank')">02:00   MLB: Rangers @ Padres</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd1.php', '_blank')">11:00   Tour de France - Stage 3</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/pt/sporttv2.php', '_blank')">11:00   Wimbledon</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/pt/sporttv3.php', '_blank')">11:00   Wimbledon</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd11.php', '_blank')">17:00   Spain W x Belgium W</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd6.php', '_blank')">17:00   Spain W x Belgium W</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd10.php', '_blank')">17:00   Spain W x Belgium W</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/pt/sporttv1.php', '_blank')">17:00   Spain W x Belgium W</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd9.php', '_blank')">20:00   Portugal W x Italy W</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd7.php', '_blank')">20:00   Portugal W x Italy W</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/pt/sporttv1.php', '_blank')">20:00   Portugal W x Italy W</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd1.php', '_blank')">23:30   MLB: Rays @ Tigers</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd5.php', '_blank')">00:00   NBA: Oklahoma City Thunder @ Philadelphia 76ers</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/bra/br6.php', '_blank')">00:00   NBA: Oklahoma City Thunder @ Philadelphia 76ers</button>
+</div>
+<div>
+<button class="btn-event" onclick="window.open('https://sportzonline.si/channels/hd/hd11.php', '_blank')">02:00   NBA: Memphis Grizzlies @ Utah Jazz</button>
+</div>
+<h2>Canali</h2>
+<div>
+<button class="btn-channel" onclick="window.open('https://sportsonline.si/channels/pt/sporttv1.php', '_blank')">ï»¿PORTUGUESE SPORT TV 1</button>
+</div>
+<div>
+<button class="btn-channel" onclick="window.open('https://sportsonline.si/channels/pt/sporttv2.php', '_blank')">PORTUGUESE SPORT TV 2</button>
+</div>
+<div>
+<button class="btn-channel" onclick="window.open('https://sportsonline.si/channels/pt/sporttv3.php', '_blank')">PORTUGUESE SPORT TV 3</button>
+</div>
+<div>
+<button class="btn-channel" onclick="window.open('https://sportsonline.si/channels/pt/sporttv4.php', '_blank')">PORTUGUESE SPORT TV 4</button>
+</div>
+<div>
+<button class="btn-channel" onclick="window.open('https://sportsonline.si/channels/pt/sporttv5.php', '_blank')">PORTUGUESE SPORT TV 5</button>
+</div>
+<div>
+<button class="btn-channel" onclick="window.open('https://sportsonline.si/channels/pt/eleven1.php', '_blank')">PORTUGUESE ELEVEN SPORTS 1</button>
+</div>
+<div>
+<button class="btn-channel" onclick="window.open('https://sportsonline.si/channels/pt/eleven2.php', '_blank')">PORTUGUESE ELEVEN SPORTS 2</button>
+</div>
+<div>
+<button class="btn-channel" onclick="window.open('https://sportsonline.si/channels/pt/eleven3.php', '_blank')">PORTUGUESE ELEVEN SPORTS 3</button>
+</div>
+<div>
+<button class="btn-channel" onclick="window.open('https://sportsonline.si/channels/pt/btv.php', '_blank')">PORTUGUESE BENFICA TV/BTV</button>
+</div>
+</body></html>
