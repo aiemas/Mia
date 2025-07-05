@@ -1,4 +1,4 @@
-name: Aggiorna lista Sportzonline ogni giorno
+name: Aggiorna lista ogni giorno
 
 on:
   schedule:
