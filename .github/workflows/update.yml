@@ -2,7 +2,7 @@ name: Aggiorna lista ogni giorno
 
 on:
   schedule:
-    - cron: '0 12 * * *'   # ogni giorno alle 12:00 UTC
+    - cron: '0 7 * * *'   # ogni giorno alle 12:00 UTC
   workflow_dispatch:       # per avviare manualmente dall’interfaccia GitHub
 
 jobs:
