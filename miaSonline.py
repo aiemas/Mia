@@ -2,7 +2,7 @@ import requests
 
 # URL dei due file
 url_events = "https://sportsonline.ci/prog.txt"
-url_channels = "https://sportzonline.si/247.txt"
+url_channels = "https://sportzonline.site/247.txt"
 
 # Scarica prog.txt (eventi)
 print(f"Scarico eventi da: {url_events}")
