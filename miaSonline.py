@@ -36,9 +36,9 @@ input[type="text"] { width: 100%%; padding: 12px; margin-bottom: 20px; font-size
 .card { background-color: #1a1a1a; border-radius: 10px; padding: 15px; text-align: center; transition: transform 0.2s, background-color 0.2s; }
 .card:hover { transform: translateY(-5px); background-color: #222; }
 button { width: 100%%; padding: 10px; font-size: 16px; border: none; border-radius: 8px; cursor: pointer; color: #fff; transition: background-color 0.2s; }
-.btn-event { background-color: #ff4d4d; }    /* rosso */
+.btn-event { background-color: #ff4d4d; }
 .btn-event:hover { background-color: #ff1a1a; }
-.btn-channel { background-color: #00bfff; }  /* azzurro */
+.btn-channel { background-color: #00bfff; }
 .btn-channel:hover { background-color: #0099e6; }
 h2 { margin-top: 40px; color: #ccc; border-bottom: 1px solid #333; padding-bottom: 5px; }
 .time { font-size: 14px; color: #aaa; margin-bottom: 5px; }
@@ -76,14 +76,14 @@ for line in lines_events:
         left, right = line.split("|", 1)
         name = left.strip().replace('"', "'")
         url = right.strip()
-        
-        # Controlla se c'è un orario all'inizio tipo 18:30
+
+        # Aggiusto orario +1 se trovi orario davanti
         if ":" in name:
             parts = name.split(" ", 1)
             try:
                 time_obj = datetime.strptime(parts[0], "%H:%M") + timedelta(hours=1)
                 time_str = time_obj.strftime("%H:%M")
-                display_name = f"{time_str} {parts[1]}" if len(parts) > 1 else f"{time_str}"
+                display_name = f"{time_str} {parts[1]}" if len(parts) > 1 else time_str
             except:
                 display_name = name
         else:
@@ -109,10 +109,9 @@ for line in lines_channels:
     if "-" in line:
         left, right = line.split("-", 1)
         name = left.strip().replace('"', "'")
-        url = right.strip()
-        # Aggiorna il dominio al link reale
-        if url.startswith("http"):
-            url = url.replace("sportzonline.site", "sportsonline.cv")
+        filename = right.strip().split("/")[-1]  # prendo solo il file finale
+        # costruisco il link corretto
+        url = f"https://sportsonline.cv/channels/{filename}"
         html += f"<div class='card'>\n"
         html += f"<button class='btn-channel' onclick=\"window.open('{url}', '_blank')\">{name}</button>\n"
         html += "</div>\n"
