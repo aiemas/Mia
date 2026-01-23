@@ -53,45 +53,43 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 """
 
-# Processa linee e raggruppa eventi con canali
-matches = []
+# Raggruppa partite e canali
+matches = {}
 for line in lines:
     line = line.strip()
-    if not line or "http" not in line:
+    if not line or "https://sportsonline.cv/channels/" not in line:
         continue
-    if "|" in line:
-        continue  # salto linee vecchio formato
-    # formato orario | partita | link canale
-    if "https://sportsonline.cv/channels/" in line:
-        try:
-            time_part, rest = line.split("  ", 1)  # doppio spazio
-            title, url = rest.rsplit(" | ", 1)
-            # aggiusta orario +1
-            try:
-                time_obj = datetime.strptime(time_part.strip(), "%H:%M") + timedelta(hours=1)
-                time_str = time_obj.strftime("%H:%M")
-            except:
-                time_str = time_part.strip()
-            matches.append({"time": time_str, "title": title.strip(), "url": url.strip()})
-        except:
-            print(f"Riga ignorata: {line}")
 
-# Raggruppa canali per partita
-grouped = {}
-for m in matches:
-    key = f"{m['time']}|{m['title']}"
-    if key not in grouped:
-        grouped[key] = []
-    grouped[key].append(m['url'])
+    try:
+        # separa orario e resto
+        time_part, rest = line.split("   ", 1)
+        title, url = rest.rsplit(" | ", 1)
+
+        # aggiusta orario +1
+        try:
+            time_obj = datetime.strptime(time_part.strip(), "%H:%M") + timedelta(hours=1)
+            time_str = time_obj.strftime("%H:%M")
+        except:
+            time_str = time_part.strip()
+
+        # correggi dominio sempre su .cv
+        url = url.replace("https://sportsonline.sn/channels/", "https://sportsonline.cv/channels/")
+
+        # usa titolo come chiave per raggruppare canali per partita
+        key = title.strip()
+        if key not in matches:
+            matches[key] = {"time": time_str, "urls": []}
+        matches[key]["urls"].append(url)
+    except:
+        print(f"Riga ignorata: {line}")
 
 # Costruisci HTML
-for key, urls in grouped.items():
-    time_str, title = key.split("|", 1)
+for title, info in matches.items():
     html += f'<div class="match">\n'
-    html += f'<div class="match-time">{time_str}</div>\n'
+    html += f'<div class="match-time">{info["time"]}</div>\n'
     html += f'<div class="match-title">{title}</div>\n'
     html += '<div class="channel-row">\n'
-    for i, url in enumerate(urls, 1):
+    for i, url in enumerate(info["urls"], 1):
         html += f'<button class="btn-channel" onclick="window.open(\'{url}\', \'_blank\')">Canale {i}</button>\n'
     html += '</div></div>\n'
 
