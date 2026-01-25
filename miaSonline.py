@@ -1,5 +1,4 @@
 import requests
-import re
 from datetime import datetime, timedelta
 
 # URL dei due file
@@ -27,33 +26,27 @@ html = """<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Eventi e Canali Sportzonline</title>
+<title>Sportzonline - Eventi e Canali</title>
 <style>
-body { font-family: sans-serif; margin: 20px; }
-input[type="text"] { width: 100%%; padding: 10px; margin-bottom: 20px; font-size: 16px; }
-
-h1 { margin-bottom: 20px; }
-h2 { margin-top: 40px; color: #333; }
-div { margin-bottom: 10px; }
-
-button {
-  margin: 3px;
-  padding: 6px 10px;
-  font-size: 14px;
-  display: inline-block;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-}
-
-.btn-event { background-color: #2196F3; }    /* blu */
-.btn-channel { background-color: #4CAF50; }  /* verde */
+body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background-color: #0f0f0f; color: #fff; }
+header { background-color: #1c1c1c; padding: 20px; text-align: center; font-size: 24px; font-weight: bold; }
+.container { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
+input[type="text"] { width: 100%%; padding: 12px; margin-bottom: 20px; font-size: 16px; border-radius: 8px; border: none; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+.card { background-color: #1a1a1a; border-radius: 10px; padding: 15px; text-align: center; transition: transform 0.2s, background-color 0.2s; }
+.card:hover { transform: translateY(-5px); background-color: #222; }
+button { width: 100%%; padding: 10px; font-size: 16px; border: none; border-radius: 8px; cursor: pointer; color: #fff; transition: background-color 0.2s; }
+.btn-event { background-color: #ff4d4d; }    /* rosso */
+.btn-event:hover { background-color: #ff1a1a; }
+.btn-channel { background-color: #00bfff; }  /* azzurro */
+.btn-channel:hover { background-color: #0099e6; }
+h2 { margin-top: 40px; color: #ccc; border-bottom: 1px solid #333; padding-bottom: 5px; }
+.time { font-size: 14px; color: #aaa; margin-bottom: 5px; }
 </style>
 </head>
 <body>
-<h1>Eventi e Canali - Sportzonline</h1>
-
+<header>Sportzonline - Eventi e Canali</header>
+<div class="container">
 <input type="text" id="searchInput" placeholder="Cerca evento o canale...">
 
 <script>
@@ -61,10 +54,10 @@ document.addEventListener("DOMContentLoaded", function() {
   const searchInput = document.getElementById('searchInput');
   searchInput.addEventListener('input', function() {
     const filter = searchInput.value.toLowerCase();
-    const buttons = document.querySelectorAll('button');
-    buttons.forEach(button => {
-      const text = button.textContent.toLowerCase();
-      button.parentElement.style.display = text.includes(filter) ? '' : 'none';
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+      const text = card.textContent.toLowerCase();
+      card.style.display = text.includes(filter) ? '' : 'none';
     });
   });
 });
@@ -72,42 +65,61 @@ document.addEventListener("DOMContentLoaded", function() {
 """
 
 # Sezione Eventi
-html += "<h2>Eventi</h2>\n"
+html += "<h2>Eventi</h2>\n<div class='grid'>\n"
 
 for line in lines_events:
     line = line.strip()
     if not line or "http" not in line:
-        continue  # Salta righe vuote o righe senza URL
+        continue
 
     if "|" in line:
         left, right = line.split("|", 1)
         name = left.strip().replace('"', "'")
         url = right.strip()
-        html += f'<div>\n'
-        html += f'<button class="btn-event" onclick="window.open(\'{url}\', \'_blank\')">{name}</button>\n'
-        html += f'</div>\n'
+        
+        # Controlla se c'è un orario all'inizio tipo 18:30
+        if ":" in name:
+            parts = name.split(" ", 1)
+            try:
+                time_obj = datetime.strptime(parts[0], "%H:%M") + timedelta(hours=1)
+                time_str = time_obj.strftime("%H:%M")
+                display_name = f"{time_str} {parts[1]}" if len(parts) > 1 else f"{time_str}"
+            except:
+                display_name = name
+        else:
+            display_name = name
+        
+        html += f"<div class='card'>\n"
+        html += f"<div class='time'>{display_name.split(' ')[0]}</div>\n"
+        html += f"<button class='btn-event' onclick=\"window.open('{url}', '_blank')\">{display_name}</button>\n"
+        html += "</div>\n"
     else:
         print(f"Riga evento ignorata: {line}")
 
+html += "</div>\n"
+
 # Sezione Canali
-html += "<h2>Canali</h2>\n"
+html += "<h2>Canali TV</h2>\n<div class='grid'>\n"
 
 for line in lines_channels:
     line = line.strip()
     if not line or "http" not in line:
-        continue  # Salta righe vuote o righe senza URL
+        continue
 
     if "-" in line:
         left, right = line.split("-", 1)
         name = left.strip().replace('"', "'")
         url = right.strip()
-        html += f'<div>\n'
-        html += f'<button class="btn-channel" onclick="window.open(\'{url}\', \'_blank\')">{name}</button>\n'
-        html += f'</div>\n'
+        # Aggiorna il dominio al link reale
+        if url.startswith("http"):
+            url = url.replace("sportzonline.site", "sportsonline.cv")
+        html += f"<div class='card'>\n"
+        html += f"<button class='btn-channel' onclick=\"window.open('{url}', '_blank')\">{name}</button>\n"
+        html += "</div>\n"
     else:
         print(f"Riga canale ignorata: {line}")
 
-html += "</body></html>"
+html += "</div>\n</div></body></html>"
 
 # Scrivi su file
 with open("sportzonline_lista.html", "w", encoding="utf-8") as f:
