@@ -64,40 +64,54 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 """
 
-# Sezione Eventi
+# --- NUOVA SEZIONE EVENTI RAGGRUPPATI ---
 html += "<h2>Eventi</h2>\n<div class='grid'>\n"
+
+# 1. Raggruppiamo i link per nome evento
+eventi_raggruppati = {}
 
 for line in lines_events:
     line = line.strip()
-    if not line or "http" not in line:
+    if not line or "http" not in line or "|" not in line:
         continue
 
-    if "|" in line:
-        left, right = line.split("|", 1)
-        name = left.strip().replace('"', "'")
-        url = right.strip()
-        
-        # Controlla se c'è un orario all'inizio tipo 18:30
-        if ":" in name:
-            parts = name.split(" ", 1)
-            try:
-                time_obj = datetime.strptime(parts[0], "%H:%M") + timedelta(hours=1)
-                time_str = time_obj.strftime("%H:%M")
-                display_name = f"{time_str} {parts[1]}" if len(parts) > 1 else f"{time_str}"
-            except:
-                display_name = name
-        else:
-            display_name = name
-        
-        html += f"<div class='card'>\n"
-        html += f"<div class='time'>{display_name.split(' ')[0]}</div>\n"
-        html += f"<button class='btn-event' onclick=\"window.open('{url}', '_blank')\">{display_name}</button>\n"
-        html += "</div>\n"
-    else:
-        print(f"Riga evento ignorata: {line}")
+    left, url = line.split("|", 1)
+    name = left.strip().replace('"', "'")
+    url = url.strip()
+    
+    # Gestione orario
+    time_str = ""
+    display_name = name
+    if ":" in name:
+        parts = name.split(" ", 1)
+        try:
+            time_obj = datetime.strptime(parts[0], "%H:%M") + timedelta(hours=1)
+            time_str = time_obj.strftime("%H:%M")
+            display_name = parts[1] if len(parts) > 1 else ""
+        except:
+            pass
+
+    # Usiamo il nome del match come chiave per raggruppare
+    if display_name not in eventi_raggruppati:
+        eventi_raggruppati[display_name] = {'ora': time_str, 'links': []}
+    
+    eventi_raggruppati[display_name]['links'].append(url)
+
+# 2. Generiamo l'HTML usando i dati raggruppati
+for nome_match, dati in eventi_raggruppati.items():
+    html += f"<div class='card'>\n"
+    if dati['ora']:
+        html += f"<div class='time'>{dati['ora']}</div>\n"
+    html += f"<div style='margin-bottom:10px; font-weight:bold;'>{nome_match}</div>\n"
+    
+    # Creiamo un bottone per ogni link trovato per questo match
+    for i, link in enumerate(dati['links'], 1):
+        html += f"<button class='btn-event' style='margin-bottom:5px;' onclick=\"window.open('{link}', '_blank')\">Link {i}</button>\n"
+    
+    html += "</div>\n"
 
 html += "</div>\n"
-
+# --- FINE NUOVA SEZIONE EVENTI ---
 # Sezione Canali
 html += "<h2>Canali TV</h2>\n<div class='grid'>\n"
 
