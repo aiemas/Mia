@@ -4,20 +4,22 @@
 <meta charset="UTF-8">
 <title>Sportzonline - Eventi e Canali</title>
 <style>
-body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background-color: #0f0f0f; color: #fff; }
-header { background-color: #1c1c1c; padding: 20px; text-align: center; font-size: 24px; font-weight: bold; }
-.container { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
-input[type="text"] { width: 100%%; padding: 12px; margin-bottom: 20px; font-size: 16px; border-radius: 8px; border: none; }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
-.card { background-color: #1a1a1a; border-radius: 10px; padding: 15px; text-align: center; transition: transform 0.2s, background-color 0.2s; }
-.card:hover { transform: translateY(-5px); background-color: #222; }
-button { width: 100%%; padding: 10px; font-size: 16px; border: none; border-radius: 8px; cursor: pointer; color: #fff; transition: background-color 0.2s; }
-.btn-event { background-color: #ff4d4d; }    /* rosso */
-.btn-event:hover { background-color: #ff1a1a; }
-.btn-channel { background-color: #00bfff; }  /* azzurro */
-.btn-channel:hover { background-color: #0099e6; }
-h2 { margin-top: 40px; color: #ccc; border-bottom: 1px solid #333; padding-bottom: 5px; }
-.time { font-size: 14px; color: #aaa; margin-bottom: 5px; }
+body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; background-color: #0a0b10; color: #e0e6ed; }
+header { background: linear-gradient(135deg, #16213e 0%, #0f3460 100%); padding: 30px; text-align: center; font-size: 28px; font-weight: 800; letter-spacing: 2px; border-bottom: 3px solid #00d2ff; text-transform: uppercase; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+.container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+input[type="text"] { width: 100%%; padding: 15px; margin-bottom: 30px; font-size: 16px; border-radius: 12px; border: 1px solid #1a1a2e; background-color: #16213e; color: #fff; outline: none; transition: 0.3s; box-sizing: border-box; }
+input[type="text"]:focus { border-color: #00d2ff; box-shadow: 0 0 10px rgba(0, 210, 255, 0.3); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+.card { background: #1a1a2e; border-radius: 15px; padding: 20px; text-align: center; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1px solid #252545; }
+.card:hover { transform: translateY(-8px); border-color: #00d2ff; box-shadow: 0 10px 20px rgba(0,0,0,0.4); background: #1f1f3d; }
+button { width: 100%%; padding: 12px; font-size: 14px; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; color: #fff; transition: 0.3s; text-transform: uppercase; }
+.btn-event { background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%); margin-top: 8px; }
+.btn-event:hover { filter: brightness(1.2); box-shadow: 0 4px 12px rgba(0, 210, 255, 0.4); }
+.btn-channel { background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%); color: #000; }
+.btn-channel:hover { filter: brightness(1.1); box-shadow: 0 4px 12px rgba(79, 172, 254, 0.4); }
+h2 { margin-top: 50px; color: #00d2ff; font-size: 22px; text-transform: uppercase; letter-spacing: 1px; border-left: 5px solid #00d2ff; padding-left: 15px; }
+.time { font-size: 16px; color: #00d2ff; font-weight: bold; margin-bottom: 8px; font-family: 'Courier New', monospace; }
+.match-name { color: #ffffff; font-size: 17px; min-height: 40px; display: flex; align-items: center; justify-content: center; }
 </style>
 </head>
 <body>
