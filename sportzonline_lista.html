@@ -2,33 +2,27 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Eventi e Canali Sportzonline</title>
+<title>Sportzonline - Eventi e Canali</title>
 <style>
-body { font-family: sans-serif; margin: 20px; }
-input[type="text"] { width: 100%%; padding: 10px; margin-bottom: 20px; font-size: 16px; }
-
-h1 { margin-bottom: 20px; }
-h2 { margin-top: 40px; color: #333; }
-div { margin-bottom: 10px; }
-
-button {
-  margin: 3px;
-  padding: 6px 10px;
-  font-size: 14px;
-  display: inline-block;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-}
-
-.btn-event { background-color: #2196F3; }    /* blu */
-.btn-channel { background-color: #4CAF50; }  /* verde */
+body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background-color: #0f0f0f; color: #fff; }
+header { background-color: #1c1c1c; padding: 20px; text-align: center; font-size: 24px; font-weight: bold; }
+.container { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
+input[type="text"] { width: 100%%; padding: 12px; margin-bottom: 20px; font-size: 16px; border-radius: 8px; border: none; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+.card { background-color: #1a1a1a; border-radius: 10px; padding: 15px; text-align: center; transition: transform 0.2s, background-color 0.2s; }
+.card:hover { transform: translateY(-5px); background-color: #222; }
+button { width: 100%%; padding: 10px; font-size: 16px; border: none; border-radius: 8px; cursor: pointer; color: #fff; transition: background-color 0.2s; }
+.btn-event { background-color: #ff4d4d; }    /* rosso */
+.btn-event:hover { background-color: #ff1a1a; }
+.btn-channel { background-color: #00bfff; }  /* azzurro */
+.btn-channel:hover { background-color: #0099e6; }
+h2 { margin-top: 40px; color: #ccc; border-bottom: 1px solid #333; padding-bottom: 5px; }
+.time { font-size: 14px; color: #aaa; margin-bottom: 5px; }
 </style>
 </head>
 <body>
-<h1>Eventi e Canali - Sportzonline</h1>
-
+<header>Sportzonline - Eventi e Canali</header>
+<div class="container">
 <input type="text" id="searchInput" placeholder="Cerca evento o canale...">
 
 <script>
@@ -36,404 +30,529 @@ document.addEventListener("DOMContentLoaded", function() {
   const searchInput = document.getElementById('searchInput');
   searchInput.addEventListener('input', function() {
     const filter = searchInput.value.toLowerCase();
-    const buttons = document.querySelectorAll('button');
-    buttons.forEach(button => {
-      const text = button.textContent.toLowerCase();
-      button.parentElement.style.display = text.includes(filter) ? '' : 'none';
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+      const text = card.textContent.toLowerCase();
+      card.style.display = text.includes(filter) ? '' : 'none';
     });
   });
 });
 </script>
 <h2>Eventi</h2>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd11.php', '_blank')">01:30   BoyacÃ¡ ChicÃ³ x AmÃ©rica de Cali</button>
+<div class='grid'>
+<div class='card'>
+<div class='time'>02:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd11.php', '_blank')">02:30   BoyacÃ¡ ChicÃ³ x AmÃ©rica de Cali</button>
+</div>
+<div class='card'>
+<div class='time'>02:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd2.php', '_blank')">02:30   NBA: Los Angeles Lakers @ Dallas Mavericks</button>
+</div>
+<div class='card'>
+<div class='time'>02:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv3.php', '_blank')">02:30   NBA: Los Angeles Lakers @ Dallas Mavericks</button>
+</div>
+<div class='card'>
+<div class='time'>02:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br6.php', '_blank')">02:30   NBA: Los Angeles Lakers @ Dallas Mavericks</button>
+</div>
+<div class='card'>
+<div class='time'>03:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd5.php', '_blank')">03:00   UFC 324: Justin Gaethje vs Paddy Pimblett</button>
+</div>
+<div class='card'>
+<div class='time'>03:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv1.php', '_blank')">03:00   UFC 324: Justin Gaethje vs Paddy Pimblett</button>
+</div>
+<div class='card'>
+<div class='time'>03:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br5.php', '_blank')">03:00   UFC 324: Justin Gaethje vs Paddy Pimblett</button>
+</div>
+<div class='card'>
+<div class='time'>08:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv3.php', '_blank')">08:00   Golf: DP World Tour: Hero Dubai Desert Classic - D4</button>
+</div>
+<div class='card'>
+<div class='time'>12:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv1.php', '_blank')">12:00   Portimonense x Feirense</button>
+</div>
+<div class='card'>
+<div class='time'>12:15</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd10.php', '_blank')">12:15   Telstar x AZ</button>
+</div>
+<div class='card'>
+<div class='time'>12:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd7.php', '_blank')">12:30   Sassuolo x Cremonese</button>
+</div>
+<div class='card'>
+<div class='time'>12:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv2.php', '_blank')">12:30   Sassuolo x Cremonese</button>
+</div>
+<div class='card'>
+<div class='time'>13:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd11.php', '_blank')">13:00   Portsmouth x Southampton</button>
+</div>
+<div class='card'>
+<div class='time'>13:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd3.php', '_blank')">13:30   Schalke 04 x Kaiserslautern</button>
+</div>
+<div class='card'>
+<div class='time'>14:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd2.php', '_blank')">14:00   AtlÃ©tico Madrid x Mallorca</button>
+</div>
+<div class='card'>
+<div class='time'>14:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd6.php', '_blank')">14:00   AtlÃ©tico Madrid x Mallorca</button>
+</div>
+<div class='card'>
+<div class='time'>14:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/eleven2.php', '_blank')">14:00   AtlÃ©tico Madrid x Mallorca</button>
+</div>
+<div class='card'>
+<div class='time'>14:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br6.php', '_blank')">14:00   AtlÃ©tico Madrid x Mallorca</button>
+</div>
+<div class='card'>
+<div class='time'>15:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd1.php', '_blank')">15:00   Newcastle United x Aston Villa</button>
+</div>
+<div class='card'>
+<div class='time'>15:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/eleven3.php', '_blank')">15:00   Newcastle United x Aston Villa</button>
+</div>
+<div class='card'>
+<div class='time'>15:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br2.php', '_blank')">15:00   Newcastle United x Aston Villa</button>
+</div>
+<div class='card'>
+<div class='time'>15:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd5.php', '_blank')">15:00   Crystal Palace x Chelsea</button>
+</div>
+<div class='card'>
+<div class='time'>15:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/eleven1.php', '_blank')">15:00   Crystal Palace x Chelsea</button>
+</div>
+<div class='card'>
+<div class='time'>15:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br3.php', '_blank')">15:00   Crystal Palace x Chelsea</button>
+</div>
+<div class='card'>
+<div class='time'>15:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd10.php', '_blank')">15:00   Brentford x Nottingham Forest</button>
+</div>
+<div class='card'>
+<div class='time'>15:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd7.php', '_blank')">15:00   Atalanta x Parma</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd2.php', '_blank')">01:30   NBA: Los Angeles Lakers @ Dallas Mavericks</button>
+<div class='card'>
+<div class='time'>15:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv2.php', '_blank')">15:00   Atalanta x Parma</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv3.php', '_blank')">01:30   NBA: Los Angeles Lakers @ Dallas Mavericks</button>
+<div class='card'>
+<div class='time'>15:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd8.php', '_blank')">15:00   Genoa x Bologna</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br6.php', '_blank')">01:30   NBA: Los Angeles Lakers @ Dallas Mavericks</button>
+<div class='card'>
+<div class='time'>15:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd4.php', '_blank')">15:00   Nantes x Nice</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd5.php', '_blank')">02:00   UFC 324: Justin Gaethje vs Paddy Pimblett</button>
+<div class='card'>
+<div class='time'>15:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv3.php', '_blank')">15:00   Nantes x Nice</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv1.php', '_blank')">02:00   UFC 324: Justin Gaethje vs Paddy Pimblett</button>
+<div class='card'>
+<div class='time'>15:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd9.php', '_blank')">15:00   Aris x Levadiakos</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br5.php', '_blank')">02:00   UFC 324: Justin Gaethje vs Paddy Pimblett</button>
+<div class='card'>
+<div class='time'>15:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd3.php', '_blank')">15:30   Borussia M'gladbach x Stuttgart</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv3.php', '_blank')">07:00   Golf: DP World Tour: Hero Dubai Desert Classic - D4</button>
+<div class='card'>
+<div class='time'>16:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd11.php', '_blank')">16:00   Hearts x Celtic</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv1.php', '_blank')">11:00   Portimonense x Feirense</button>
+<div class='card'>
+<div class='time'>16:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv4.php', '_blank')">16:00   Hearts x Celtic</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd10.php', '_blank')">11:15   Telstar x AZ</button>
+<div class='card'>
+<div class='time'>16:15</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd2.php', '_blank')">16:15   Barcelona x Real Oviedo</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd7.php', '_blank')">11:30   Sassuolo x Cremonese</button>
+<div class='card'>
+<div class='time'>16:15</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd6.php', '_blank')">16:15   Barcelona x Real Oviedo</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv2.php', '_blank')">11:30   Sassuolo x Cremonese</button>
+<div class='card'>
+<div class='time'>16:15</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/eleven2.php', '_blank')">16:15   Barcelona x Real Oviedo</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd11.php', '_blank')">12:00   Portsmouth x Southampton</button>
+<div class='card'>
+<div class='time'>16:15</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br5.php', '_blank')">16:15   Barcelona x Real Oviedo</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd3.php', '_blank')">12:30   Schalke 04 x Kaiserslautern</button>
+<div class='card'>
+<div class='time'>16:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv1.php', '_blank')">16:30   Nacional x Rio Ave</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd2.php', '_blank')">13:00   AtlÃ©tico Madrid x Mallorca</button>
+<div class='card'>
+<div class='time'>17:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd10.php', '_blank')">17:00   Stade Malien Bamako x Petro de Luanda</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd6.php', '_blank')">13:00   AtlÃ©tico Madrid x Mallorca</button>
+<div class='card'>
+<div class='time'>17:15</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd4.php', '_blank')">17:15   Metz x Olympique Lyonnais</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/eleven2.php', '_blank')">13:00   AtlÃ©tico Madrid x Mallorca</button>
+<div class='card'>
+<div class='time'>17:15</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv3.php', '_blank')">17:15   Metz x Olympique Lyonnais</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br6.php', '_blank')">13:00   AtlÃ©tico Madrid x Mallorca</button>
+<div class='card'>
+<div class='time'>17:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd1.php', '_blank')">17:30   Arsenal x Manchester United</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd1.php', '_blank')">14:00   Newcastle United x Aston Villa</button>
+<div class='card'>
+<div class='time'>17:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd5.php', '_blank')">17:30   Arsenal x Manchester United</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/eleven3.php', '_blank')">14:00   Newcastle United x Aston Villa</button>
+<div class='card'>
+<div class='time'>17:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/eleven1.php', '_blank')">17:30   Arsenal x Manchester United</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br2.php', '_blank')">14:00   Newcastle United x Aston Villa</button>
+<div class='card'>
+<div class='time'>17:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br2.php', '_blank')">17:30   Arsenal x Manchester United</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd5.php', '_blank')">14:00   Crystal Palace x Chelsea</button>
+<div class='card'>
+<div class='time'>17:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd3.php', '_blank')">17:30   Freiburg x KÃ¶ln</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/eleven1.php', '_blank')">14:00   Crystal Palace x Chelsea</button>
+<div class='card'>
+<div class='time'>18:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd8.php', '_blank')">18:00   Juventus x Napoli</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br3.php', '_blank')">14:00   Crystal Palace x Chelsea</button>
+<div class='card'>
+<div class='time'>18:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv2.php', '_blank')">18:00   Juventus x Napoli</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd10.php', '_blank')">14:00   Brentford x Nottingham Forest</button>
+<div class='card'>
+<div class='time'>18:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br4.php', '_blank')">18:00   Juventus x Napoli</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd7.php', '_blank')">14:00   Atalanta x Parma</button>
+<div class='card'>
+<div class='time'>18:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd11.php', '_blank')">18:00   FenerbahÃ§e x GÃ¶ztepe</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv2.php', '_blank')">14:00   Atalanta x Parma</button>
+<div class='card'>
+<div class='time'>18:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd2.php', '_blank')">18:30   Real Sociedad x Celta de Vigo</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd8.php', '_blank')">14:00   Genoa x Bologna</button>
+<div class='card'>
+<div class='time'>18:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd6.php', '_blank')">18:30   Real Sociedad x Celta de Vigo</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd4.php', '_blank')">14:00   Nantes x Nice</button>
+<div class='card'>
+<div class='time'>18:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/eleven2.php', '_blank')">18:30   Real Sociedad x Celta de Vigo</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv3.php', '_blank')">14:00   Nantes x Nice</button>
+<div class='card'>
+<div class='time'>18:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br6.php', '_blank')">18:30   Real Sociedad x Celta de Vigo</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd9.php', '_blank')">14:00   Aris x Levadiakos</button>
+<div class='card'>
+<div class='time'>18:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv4.php', '_blank')">18:30   Al Riyadh x Al Hilal</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd3.php', '_blank')">14:30   Borussia M'gladbach x Stuttgart</button>
+<div class='card'>
+<div class='time'>18:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br1.php', '_blank')">18:30   Al Riyadh x Al Hilal</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd11.php', '_blank')">15:00   Hearts x Celtic</button>
+<div class='card'>
+<div class='time'>18:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd9.php', '_blank')">18:30   Atromitos x Panathinaikos</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv4.php', '_blank')">15:00   Hearts x Celtic</button>
+<div class='card'>
+<div class='time'>19:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv1.php', '_blank')">19:00   FamalicÃ£o x Tondela</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd2.php', '_blank')">15:15   Barcelona x Real Oviedo</button>
+<div class='card'>
+<div class='time'>19:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/btv.php', '_blank')">19:00   Benfica x Estrela</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd6.php', '_blank')">15:15   Barcelona x Real Oviedo</button>
+<div class='card'>
+<div class='time'>20:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd10.php', '_blank')">20:00   CR Belouizdad x Stellenbosch</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/eleven2.php', '_blank')">15:15   Barcelona x Real Oviedo</button>
+<div class='card'>
+<div class='time'>20:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd8.php', '_blank')">20:00   Zamalek x Al Masry</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br5.php', '_blank')">15:15   Barcelona x Real Oviedo</button>
+<div class='card'>
+<div class='time'>20:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd3.php', '_blank')">20:00   Wydad Casablanca x Maniema Union</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv1.php', '_blank')">15:30   Nacional x Rio Ave</button>
+<div class='card'>
+<div class='time'>20:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br3.php', '_blank')">20:00   Santos x RB Bragantino</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd10.php', '_blank')">16:00   Stade Malien Bamako x Petro de Luanda</button>
+<div class='card'>
+<div class='time'>20:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd1.php', '_blank')">20:00   NFL: New England Patriots @ Denver Broncos</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd4.php', '_blank')">16:15   Metz x Olympique Lyonnais</button>
+<div class='card'>
+<div class='time'>20:45</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd5.php', '_blank')">20:45   Roma x Milan</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv3.php', '_blank')">16:15   Metz x Olympique Lyonnais</button>
+<div class='card'>
+<div class='time'>20:45</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd7.php', '_blank')">20:45   Roma x Milan</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd1.php', '_blank')">16:30   Arsenal x Manchester United</button>
+<div class='card'>
+<div class='time'>20:45</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv2.php', '_blank')">20:45   Roma x Milan</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd5.php', '_blank')">16:30   Arsenal x Manchester United</button>
+<div class='card'>
+<div class='time'>20:45</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br2.php', '_blank')">20:45   Roma x Milan</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/eleven1.php', '_blank')">16:30   Arsenal x Manchester United</button>
+<div class='card'>
+<div class='time'>20:45</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd4.php', '_blank')">20:45   Lille x Strasbourg</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br2.php', '_blank')">16:30   Arsenal x Manchester United</button>
+<div class='card'>
+<div class='time'>20:45</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv3.php', '_blank')">20:45   Lille x Strasbourg</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd3.php', '_blank')">16:30   Freiburg x KÃ¶ln</button>
+<div class='card'>
+<div class='time'>21:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd2.php', '_blank')">21:00   Deportivo AlavÃ©s x Real Betis</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd8.php', '_blank')">17:00   Juventus x Napoli</button>
+<div class='card'>
+<div class='time'>21:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd6.php', '_blank')">21:00   Deportivo AlavÃ©s x Real Betis</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv2.php', '_blank')">17:00   Juventus x Napoli</button>
+<div class='card'>
+<div class='time'>21:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/eleven1.php', '_blank')">21:00   Deportivo AlavÃ©s x Real Betis</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br4.php', '_blank')">17:00   Juventus x Napoli</button>
+<div class='card'>
+<div class='time'>21:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv1.php', '_blank')">21:30   Sporting Braga x Alverca</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd11.php', '_blank')">17:00   FenerbahÃ§e x GÃ¶ztepe</button>
+<div class='card'>
+<div class='time'>22:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd11.php', '_blank')">22:00   Rionegro Ãguilas x Deportivo Pasto</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd2.php', '_blank')">17:30   Real Sociedad x Celta de Vigo</button>
+<div class='card'>
+<div class='time'>22:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br4.php', '_blank')">22:00   Juventude x Monsoon</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd6.php', '_blank')">17:30   Real Sociedad x Celta de Vigo</button>
+<div class='card'>
+<div class='time'>22:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br5.php', '_blank')">22:00   Fluminense x Flamengo</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/eleven2.php', '_blank')">17:30   Real Sociedad x Celta de Vigo</button>
+<div class='card'>
+<div class='time'>22:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br1.php', '_blank')">22:00   AtlÃ©tico Mineiro x Cruzeiro</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br6.php', '_blank')">17:30   Real Sociedad x Celta de Vigo</button>
+<div class='card'>
+<div class='time'>22:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd9.php', '_blank')">22:30   Boca Juniors x Deportivo Riestra</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv4.php', '_blank')">17:30   Al Riyadh x Al Hilal</button>
+<div class='card'>
+<div class='time'>22:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv4.php', '_blank')">22:30   Boca Juniors x Deportivo Riestra</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br1.php', '_blank')">17:30   Al Riyadh x Al Hilal</button>
+<div class='card'>
+<div class='time'>22:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br6.php', '_blank')">22:30   Boca Juniors x Deportivo Riestra</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd9.php', '_blank')">17:30   Atromitos x Panathinaikos</button>
+<div class='card'>
+<div class='time'>23:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd10.php', '_blank')">23:00   Universidad CatÃ³lica x Coquimbo Unido</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv1.php', '_blank')">18:00   FamalicÃ£o x Tondela</button>
+<div class='card'>
+<div class='time'>00:10</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd11.php', '_blank')">00:10   Millonarios x Junior</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/btv.php', '_blank')">18:00   Benfica x Estrela</button>
+<div class='card'>
+<div class='time'>00:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br1.php', '_blank')">00:30   Boavista x Vasco da Gama</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd10.php', '_blank')">19:00   CR Belouizdad x Stellenbosch</button>
+<div class='card'>
+<div class='time'>00:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br5.php', '_blank')">00:30   Velo Clube x Corinthians</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd8.php', '_blank')">19:00   Zamalek x Al Masry</button>
+<div class='card'>
+<div class='time'>00:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd1.php', '_blank')">00:30   NFL: Los Angeles Rams @ Seattle Seahawks</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd3.php', '_blank')">19:00   Wydad Casablanca x Maniema Union</button>
+<div class='card'>
+<div class='time'>01:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd9.php', '_blank')">01:00   Tigre x Estudiantes RÃ­o Cuarto</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br3.php', '_blank')">19:00   Santos x RB Bragantino</button>
+<div class='card'>
+<div class='time'>01:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv1.php', '_blank')">01:00   NBA: Dallas Mavericks @ Milwaukee Bucks</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd1.php', '_blank')">19:00   NFL: New England Patriots @ Denver Broncos</button>
+<div class='card'>
+<div class='time'>02:20</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd11.php', '_blank')">02:20   Once Caldas x Santa Fe</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd5.php', '_blank')">19:45   Roma x Milan</button>
+<div class='card'>
+<div class='time'>17:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv2.php', '_blank')">17:30   Futsal: Belarus x Spain</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd7.php', '_blank')">19:45   Roma x Milan</button>
+<div class='card'>
+<div class='time'>18:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd10.php', '_blank')">18:00   EyÃ¼pspor x BeÅiktaÅ</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv2.php', '_blank')">19:45   Roma x Milan</button>
+<div class='card'>
+<div class='time'>18:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv3.php', '_blank')">18:00   EyÃ¼pspor x BeÅiktaÅ</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br2.php', '_blank')">19:45   Roma x Milan</button>
+<div class='card'>
+<div class='time'>18:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd11.php', '_blank')">18:30   Al Nassr x Al Taawon</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd4.php', '_blank')">19:45   Lille x Strasbourg</button>
+<div class='card'>
+<div class='time'>18:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv1.php', '_blank')">18:30   Al Nassr x Al Taawon</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv3.php', '_blank')">19:45   Lille x Strasbourg</button>
+<div class='card'>
+<div class='time'>18:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br1.php', '_blank')">18:30   Al Nassr x Al Taawon</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd2.php', '_blank')">20:00   Deportivo AlavÃ©s x Real Betis</button>
+<div class='card'>
+<div class='time'>18:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br5.php', '_blank')">18:30   Al Ittihad x Al Akhdoud</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd6.php', '_blank')">20:00   Deportivo AlavÃ©s x Real Betis</button>
+<div class='card'>
+<div class='time'>19:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv4.php', '_blank')">19:00   UniÃ£o de Leiria x Sporting CP B</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/eleven1.php', '_blank')">20:00   Deportivo AlavÃ©s x Real Betis</button>
+<div class='card'>
+<div class='time'>20:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv2.php', '_blank')">20:30   Futsal: Belgium x Slovenia</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv1.php', '_blank')">20:30   Sporting Braga x Alverca</button>
+<div class='card'>
+<div class='time'>20:45</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd7.php', '_blank')">20:45   Verona x Udinese</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd11.php', '_blank')">21:00   Rionegro Ãguilas x Deportivo Pasto</button>
+<div class='card'>
+<div class='time'>20:45</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv3.php', '_blank')">20:45   Verona x Udinese</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br4.php', '_blank')">21:00   Juventude x Monsoon</button>
+<div class='card'>
+<div class='time'>20:45</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd4.php', '_blank')">20:45   Le Mans x Dunkerque</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br5.php', '_blank')">21:00   Fluminense x Flamengo</button>
+<div class='card'>
+<div class='time'>21:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd1.php', '_blank')">21:00   Everton x Leeds United</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br1.php', '_blank')">21:00   AtlÃ©tico Mineiro x Cruzeiro</button>
+<div class='card'>
+<div class='time'>21:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/eleven1.php', '_blank')">21:00   Everton x Leeds United</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd9.php', '_blank')">21:30   Boca Juniors x Deportivo Riestra</button>
+<div class='card'>
+<div class='time'>21:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd2.php', '_blank')">21:00   Girona x Getafe</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv4.php', '_blank')">21:30   Boca Juniors x Deportivo Riestra</button>
+<div class='card'>
+<div class='time'>21:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd6.php', '_blank')">21:00   Girona x Getafe</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br6.php', '_blank')">21:30   Boca Juniors x Deportivo Riestra</button>
+<div class='card'>
+<div class='time'>21:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/eleven2.php', '_blank')">21:00   Girona x Getafe</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd10.php', '_blank')">22:00   Universidad CatÃ³lica x Coquimbo Unido</button>
+<div class='card'>
+<div class='time'>21:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd5.php', '_blank')">21:00   Norwich City x Coventry City</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd11.php', '_blank')">23:10   Millonarios x Junior</button>
+<div class='card'>
+<div class='time'>21:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br6.php', '_blank')">21:00   Norwich City x Coventry City</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br1.php', '_blank')">23:30   Boavista x Vasco da Gama</button>
+<div class='card'>
+<div class='time'>21:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd9.php', '_blank')">21:00   Platense x Instituto</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br5.php', '_blank')">23:30   Velo Clube x Corinthians</button>
+<div class='card'>
+<div class='time'>21:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br4.php', '_blank')">21:00   Madureira x Portuguesa-RJ</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd1.php', '_blank')">23:30   NFL: Los Angeles Rams @ Seattle Seahawks</button>
+<div class='card'>
+<div class='time'>21:15</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv1.php', '_blank')">21:15   Porto x Gil Vicente</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd9.php', '_blank')">00:00   Tigre x Estudiantes RÃ­o Cuarto</button>
+<div class='card'>
+<div class='time'>21:15</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br2.php', '_blank')">21:15   Porto x Gil Vicente</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv1.php', '_blank')">00:00   NBA: Dallas Mavericks @ Milwaukee Bucks</button>
+<div class='card'>
+<div class='time'>23:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br1.php', '_blank')">23:30   Futsal: Argentina x Uruguay</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd11.php', '_blank')">01:20   Once Caldas x Santa Fe</button>
+<div class='card'>
+<div class='time'>00:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br3.php', '_blank')">00:00   Portuguesa x Guarani</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv2.php', '_blank')">16:30   Futsal: Belarus x Spain</button>
+<div class='card'>
+<div class='time'>01:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd1.php', '_blank')">01:00   NBA: Orlando Magic @ Cleveland Cavaliers</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd10.php', '_blank')">17:00   EyÃ¼pspor x BeÅiktaÅ</button>
+<div class='card'>
+<div class='time'>01:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br6.php', '_blank')">01:00   NBA: Orlando Magic @ Cleveland Cavaliers</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv3.php', '_blank')">17:00   EyÃ¼pspor x BeÅiktaÅ</button>
+<div class='card'>
+<div class='time'>01:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br4.php', '_blank')">01:30   Nova IguaÃ§u x Volta Redonda</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd11.php', '_blank')">17:30   Al Nassr x Al Taawon</button>
+<div class='card'>
+<div class='time'>02:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv1.php', '_blank')">02:00   NBA: Portland Trail Blazers @ Boston Celtics</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv1.php', '_blank')">17:30   Al Nassr x Al Taawon</button>
+<div class='card'>
+<div class='time'>02:00</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd2.php', '_blank')">02:00   NBA: Los Angeles Lakers @ Chicago Bulls</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br1.php', '_blank')">17:30   Al Nassr x Al Taawon</button>
+<div class='card'>
+<div class='time'>03:30</div>
+<button class='btn-event' onclick="window.open('https://v1.sportsonline.cv/channels/bra/br6.php', '_blank')">03:30   NBA: Minnesota Timberwolves @ Golden State Warriors</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br5.php', '_blank')">17:30   Al Ittihad x Al Akhdoud</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv4.php', '_blank')">18:00   UniÃ£o de Leiria x Sporting CP B</button>
+<h2>Canali TV</h2>
+<div class='grid'>
+<div class='card'>
+<button class='btn-channel' onclick="window.open('https://sportsonline.sn/channels/pt/sporttv1.php', '_blank')">ï»¿PORTUGUESE SPORT TV 1</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv2.php', '_blank')">19:30   Futsal: Belgium x Slovenia</button>
+<div class='card'>
+<button class='btn-channel' onclick="window.open('https://sportsonline.sn/channels/pt/sporttv2.php', '_blank')">PORTUGUESE SPORT TV 2</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd7.php', '_blank')">19:45   Verona x Udinese</button>
+<div class='card'>
+<button class='btn-channel' onclick="window.open('https://sportsonline.sn/channels/pt/sporttv3.php', '_blank')">PORTUGUESE SPORT TV 3</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv3.php', '_blank')">19:45   Verona x Udinese</button>
+<div class='card'>
+<button class='btn-channel' onclick="window.open('https://sportsonline.sn/channels/pt/sporttv4.php', '_blank')">PORTUGUESE SPORT TV 4</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd4.php', '_blank')">19:45   Le Mans x Dunkerque</button>
+<div class='card'>
+<button class='btn-channel' onclick="window.open('https://sportsonline.sn/channels/pt/sporttv5.php', '_blank')">PORTUGUESE SPORT TV 5</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd1.php', '_blank')">20:00   Everton x Leeds United</button>
+<div class='card'>
+<button class='btn-channel' onclick="window.open('https://sportsonline.sn/channels/pt/eleven1.php', '_blank')">PORTUGUESE ELEVEN SPORTS 1</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/eleven1.php', '_blank')">20:00   Everton x Leeds United</button>
+<div class='card'>
+<button class='btn-channel' onclick="window.open('https://sportsonline.sn/channels/pt/eleven2.php', '_blank')">PORTUGUESE ELEVEN SPORTS 2</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd2.php', '_blank')">20:00   Girona x Getafe</button>
+<div class='card'>
+<button class='btn-channel' onclick="window.open('https://sportsonline.sn/channels/pt/eleven3.php', '_blank')">PORTUGUESE ELEVEN SPORTS 3</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd6.php', '_blank')">20:00   Girona x Getafe</button>
+<div class='card'>
+<button class='btn-channel' onclick="window.open('https://sportsonline.sn/channels/pt/btv.php', '_blank')">PORTUGUESE BENFICA TV/BTV</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/eleven2.php', '_blank')">20:00   Girona x Getafe</button>
 </div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd5.php', '_blank')">20:00   Norwich City x Coventry City</button>
-</div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br6.php', '_blank')">20:00   Norwich City x Coventry City</button>
-</div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd9.php', '_blank')">20:00   Platense x Instituto</button>
-</div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br4.php', '_blank')">20:00   Madureira x Portuguesa-RJ</button>
-</div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv1.php', '_blank')">20:15   Porto x Gil Vicente</button>
-</div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br2.php', '_blank')">20:15   Porto x Gil Vicente</button>
-</div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br1.php', '_blank')">22:30   Futsal: Argentina x Uruguay</button>
-</div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br3.php', '_blank')">23:00   Portuguesa x Guarani</button>
-</div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd1.php', '_blank')">00:00   NBA: Orlando Magic @ Cleveland Cavaliers</button>
-</div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br6.php', '_blank')">00:00   NBA: Orlando Magic @ Cleveland Cavaliers</button>
-</div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br4.php', '_blank')">00:30   Nova IguaÃ§u x Volta Redonda</button>
-</div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/pt/sporttv1.php', '_blank')">01:00   NBA: Portland Trail Blazers @ Boston Celtics</button>
-</div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/hd/hd2.php', '_blank')">01:00   NBA: Los Angeles Lakers @ Chicago Bulls</button>
-</div>
-<div>
-<button class="btn-event" onclick="window.open('https://v1.sportsonline.cv/channels/bra/br6.php', '_blank')">02:30   NBA: Minnesota Timberwolves @ Golden State Warriors</button>
-</div>
-<h2>Canali</h2>
-<div>
-<button class="btn-channel" onclick="window.open('https://sportsonline.sn/channels/pt/sporttv1.php', '_blank')">ï»¿PORTUGUESE SPORT TV 1</button>
-</div>
-<div>
-<button class="btn-channel" onclick="window.open('https://sportsonline.sn/channels/pt/sporttv2.php', '_blank')">PORTUGUESE SPORT TV 2</button>
-</div>
-<div>
-<button class="btn-channel" onclick="window.open('https://sportsonline.sn/channels/pt/sporttv3.php', '_blank')">PORTUGUESE SPORT TV 3</button>
-</div>
-<div>
-<button class="btn-channel" onclick="window.open('https://sportsonline.sn/channels/pt/sporttv4.php', '_blank')">PORTUGUESE SPORT TV 4</button>
-</div>
-<div>
-<button class="btn-channel" onclick="window.open('https://sportsonline.sn/channels/pt/sporttv5.php', '_blank')">PORTUGUESE SPORT TV 5</button>
-</div>
-<div>
-<button class="btn-channel" onclick="window.open('https://sportsonline.sn/channels/pt/eleven1.php', '_blank')">PORTUGUESE ELEVEN SPORTS 1</button>
-</div>
-<div>
-<button class="btn-channel" onclick="window.open('https://sportsonline.sn/channels/pt/eleven2.php', '_blank')">PORTUGUESE ELEVEN SPORTS 2</button>
-</div>
-<div>
-<button class="btn-channel" onclick="window.open('https://sportsonline.sn/channels/pt/eleven3.php', '_blank')">PORTUGUESE ELEVEN SPORTS 3</button>
-</div>
-<div>
-<button class="btn-channel" onclick="window.open('https://sportsonline.sn/channels/pt/btv.php', '_blank')">PORTUGUESE BENFICA TV/BTV</button>
-</div>
-</body></html>
+</div></body></html>
