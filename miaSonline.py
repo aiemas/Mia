@@ -1,4 +1,6 @@
 import requests
+import re
+from datetime import datetime, timedelta
 
 # URL dei due file
 url_events = "https://sportsonline.ci/prog.txt"
