@@ -2,181 +2,230 @@ import requests
 import re
 from datetime import datetime, timedelta
 
-# URL dei due file
+
+# URL
 url_events = "https://sportsonline.ci/prog.txt"
 url_channels = "https://sportzonline.site/247.txt"
 url_pepper = "https://pepperlive.info/"
 
-# Scarica prog.txt (eventi)
-print(f"Scarico eventi da: {url_events}")
-response_events = requests.get(url_events)
-if response_events.status_code != 200:
-    print(f"Errore nel download di prog.txt: HTTP {response_events.status_code}")
-    exit(1)
-lines_events = response_events.text.strip().splitlines()
 
-# Scarica 247.txt (canali)
-print(f"Scarico canali da: {url_channels}")
-response_channels = requests.get(url_channels)
-if response_channels.status_code != 200:
-    print(f"Errore nel download di 247.txt: HTTP {response_channels.status_code}")
-    exit(1)
-lines_channels = response_channels.text.strip().splitlines()
+# ================== DOWNLOAD ==================
 
-# Scarica Pepperlive
-print("Scarico link da Pepperlive...")
-response_pepper = requests.get(url_pepper)
-pepper_links = []
+print("Scarico eventi...")
+r_events = requests.get(url_events)
+lines_events = r_events.text.strip().splitlines()
 
-if response_pepper.status_code == 200:
-    matches = re.findall(r'href="(sportp\.php\?id=\d+)"[^>]*>(.*?)<', response_pepper.text)
 
-    for link, name in matches:
-        full_url = "https://pepperlive.info/" + link
-        pepper_links.append((name.strip(), full_url))
-else:
-    print("Errore download Pepperlive")
+print("Scarico canali...")
+r_channels = requests.get(url_channels)
+lines_channels = r_channels.text.strip().splitlines()
 
-# Inizia l'HTML
+
+print("Scarico Pepperlive...")
+r_pepper = requests.get(url_pepper)
+pepper_html = r_pepper.text if r_pepper.status_code == 200 else ""
+
+
+# ================== PARSE PEPPER ==================
+
+pepper_events = []
+
+if pepper_html:
+
+    blocks = re.findall(
+        r'<div class="kode_ticket_text">(.*?)</div>\s*<div class="ticket_btn">(.*?)</div>',
+        pepper_html,
+        re.S
+    )
+
+    for info, links in blocks:
+
+        teams = re.findall(r'<h2>(.*?)</h2>', info)
+        time = re.search(r'<p>(.*?)</p>', info)
+
+        if len(teams) >= 2 and time:
+
+            team1 = teams[0].strip().title()
+            team2 = teams[1].strip().title()
+            hour = time.group(1).strip()
+
+            # +1 ora
+            try:
+                t = datetime.strptime(hour, "%H:%M") + timedelta(hours=1)
+                hour = t.strftime("%H:%M")
+            except:
+                pass
+
+            channels = re.findall(
+                r'href="(sportp\.php\?id=[^"]+)".*?>(.*?)<',
+                links
+            )
+
+            final_links = []
+
+            for link, lang in channels:
+                url = "https://pepperlive.info/" + link
+                final_links.append((lang.upper(), url))
+
+            pepper_events.append({
+                "match": f"{team1} vs {team2}",
+                "time": hour,
+                "links": final_links
+            })
+
+
+# ================== HTML ==================
+
 html = """<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Sportzonline - Eventi e Canali</title>
+
 <style>
-body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; background-color: #0a0b10; color: #e0e6ed; }
-header { background: linear-gradient(135deg, #16213e 0%, #0f3460 100%); padding: 30px; text-align: center; font-size: 28px; font-weight: 800; letter-spacing: 2px; border-bottom: 3px solid #00d2ff; text-transform: uppercase; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-.container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
-input[type="text"] { width: 100%%; padding: 15px; margin-bottom: 30px; font-size: 16px; border-radius: 12px; border: 1px solid #1a1a2e; background-color: #16213e; color: #fff; outline: none; transition: 0.3s; box-sizing: border-box; }
-input[type="text"]:focus { border-color: #00d2ff; box-shadow: 0 0 10px rgba(0, 210, 255, 0.3); }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
-.card { background: #1a1a2e; border-radius: 15px; padding: 20px; text-align: center; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 1px solid #252545; }
-.card:hover { transform: translateY(-8px); border-color: #00d2ff; box-shadow: 0 10px 20px rgba(0,0,0,0.4); background: #1f1f3d; }
-button { width: 100%%; padding: 12px; font-size: 14px; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; color: #fff; transition: 0.3s; text-transform: uppercase; }
-.btn-event { background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%); margin-top: 8px; }
-.btn-event:hover { filter: brightness(1.2); box-shadow: 0 4px 12px rgba(0, 210, 255, 0.4); }
-.btn-channel { background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%); color: #000; }
-.btn-channel:hover { filter: brightness(1.1); box-shadow: 0 4px 12px rgba(79, 172, 254, 0.4); }
-h2 { margin-top: 50px; color: #00d2ff; font-size: 22px; text-transform: uppercase; letter-spacing: 1px; border-left: 5px solid #00d2ff; padding-left: 15px; }
-.time { font-size: 16px; color: #00d2ff; font-weight: bold; margin-bottom: 8px; font-family: 'Courier New', monospace; }
+body { background:#0a0b10; color:#fff; font-family:Segoe UI; margin:0 }
+header { background:#0f3460; padding:25px; text-align:center; font-size:26px; }
+.container { max-width:1200px; margin:auto; padding:20px }
+input { width:100%%; padding:12px; margin-bottom:25px }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:20px }
+.card { background:#1a1a2e; padding:20px; border-radius:12px; text-align:center }
+button { width:100%%; padding:10px; margin:4px 0; border:0; border-radius:6px; cursor:pointer }
+.btn-event { background:#00d2ff }
+.btn-channel { background:#4facfe }
+.time { color:#00d2ff; font-weight:bold; margin-bottom:6px }
+h2 { margin-top:40px; border-left:4px solid #00d2ff; padding-left:10px }
 </style>
+
 </head>
+
 <body>
+
 <header>Sportzonline - Eventi e Canali</header>
+
 <div class="container">
-<input type="text" id="searchInput" placeholder="Cerca evento o canale...">
+
+<input id="searchInput" placeholder="Cerca...">
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-  const searchInput = document.getElementById('searchInput');
-  searchInput.addEventListener('input', function() {
-    const filter = searchInput.value.toLowerCase();
-    const cards = document.querySelectorAll('.card');
-    cards.forEach(card => {
-      const text = card.textContent.toLowerCase();
-      card.style.display = text.includes(filter) ? '' : 'none';
-    });
-  });
+document.getElementById("searchInput").addEventListener("input",function(){
+ let f=this.value.toLowerCase();
+ document.querySelectorAll(".card").forEach(c=>{
+  c.style.display=c.textContent.toLowerCase().includes(f)?"":"none";
+ });
 });
 </script>
 """
 
-# --- EVENTI ---
-html += "<h2>Eventi</h2>\n<div class='grid'>\n"
 
-eventi_raggruppati = {}
+# ================== EVENTI SPORTSONLINE ==================
+
+html += "<h2>Eventi</h2><div class='grid'>"
+
+eventi = {}
 
 for line in lines_events:
-    line = line.strip()
-    if not line or "http" not in line or "|" not in line:
+
+    if "|" not in line:
         continue
 
-    left, url = line.split("|", 1)
-    name = left.strip().replace('"', "'")
+    name, url = line.split("|",1)
+
+    name = name.strip()
     url = url.strip()
 
-    time_str = ""
-    display_name = name
+    time = ""
+    title = name
 
     if ":" in name:
-        parts = name.split(" ", 1)
+
+        p = name.split(" ",1)
+
         try:
-            time_obj = datetime.strptime(parts[0], "%H:%M") + timedelta(hours=1)
-            time_str = time_obj.strftime("%H:%M")
-            display_name = parts[1] if len(parts) > 1 else ""
+            t = datetime.strptime(p[0],"%H:%M")+timedelta(hours=1)
+            time = t.strftime("%H:%M")
+            title = p[1]
         except:
             pass
 
-    if display_name not in eventi_raggruppati:
-        eventi_raggruppati[display_name] = {'ora': time_str, 'links': []}
 
-    eventi_raggruppati[display_name]['links'].append(url)
+    if title not in eventi:
+        eventi[title]={"time":time,"links":[]}
 
-
-for nome_match, dati in eventi_raggruppati.items():
-
-    html += "<div class='card'>\n"
-
-    if dati['ora']:
-        html += f"<div class='time'>{dati['ora']}</div>\n"
-
-    html += f"<div style='margin-bottom:10px; font-weight:bold;'>{nome_match}</div>\n"
-
-    for i, link in enumerate(dati['links'], 1):
-        html += f"<button class='btn-event' onclick=\"window.open('{link}', '_blank')\">Link {i}</button>\n"
-
-    html += "</div>\n"
-
-html += "</div>\n"
+    eventi[title]["links"].append(url)
 
 
-# --- CANALI ---
-html += "<h2>Canali TV</h2>\n<div class='grid'>\n"
+
+for k,v in eventi.items():
+
+    html += "<div class='card'>"
+
+    if v["time"]:
+        html += f"<div class='time'>{v['time']}</div>"
+
+    html += f"<b>{k}</b><br>"
+
+    for i,l in enumerate(v["links"],1):
+        html += f"<button class='btn-event' onclick=\"open('{l}')\">Link {i}</button>"
+
+    html += "</div>"
+
+
+html += "</div>"
+
+
+# ================== CANALI ==================
+
+html += "<h2>Canali TV</h2><div class='grid'>"
 
 for line in lines_channels:
 
-    line = line.strip()
-
-    if not line or "http" not in line:
+    if "-" not in line:
         continue
 
-    if "-" in line:
+    n,u = line.split("-",1)
 
-        left, right = line.split("-", 1)
+    u = u.strip().replace("sportzonline.site","sportsonline.cv")
 
-        name = left.strip().replace('"', "'")
-        url = right.strip()
-
-        if url.startswith("http"):
-            url = url.replace("sportzonline.site", "sportsonline.cv")
-
-        html += "<div class='card'>\n"
-        html += f"<button class='btn-channel' onclick=\"window.open('{url}', '_blank')\">{name}</button>\n"
-        html += "</div>\n"
+    html += "<div class='card'>"
+    html += f"<button class='btn-channel' onclick=\"open('{u}')\">{n}</button>"
+    html += "</div>"
 
 
-html += "</div>\n"
+html += "</div>"
 
 
-# --- PEPPERLIVE ---
-if pepper_links:
+# ================== PEPPERLIVE ==================
 
-    html += "<h2>Pepperlive</h2>\n<div class='grid'>\n"
+if pepper_events:
 
-    for name, link in pepper_links:
+    html += "<h2>Pepperlive</h2><div class='grid'>"
 
-        html += "<div class='card'>\n"
-        html += f"<button class='btn-channel' onclick=\"window.open('{link}', '_blank')\">{name.upper()}</button>\n"
-        html += "</div>\n"
 
-    html += "</div>\n"
+    for ev in pepper_events:
 
+        html += "<div class='card'>"
+
+        html += f"<div class='time'>{ev['time']}</div>"
+
+        html += f"<b>{ev['match']}</b><br>"
+
+        for lang,link in ev["links"]:
+
+            html += f"<button class='btn-event' onclick=\"open('{link}')\">{lang}</button>"
+
+        html += "</div>"
+
+
+    html += "</div>"
+
+
+# ================== FINE ==================
 
 html += "</div></body></html>"
 
 
-# Scrivi su file
-with open("sportzonline_lista.html", "w", encoding="utf-8") as f:
+with open("sportzonline_lista.html","w",encoding="utf-8") as f:
     f.write(html)
 
-print("File 'sportzonline_lista.html' creato con successo!")
+
+print("File creato!")
