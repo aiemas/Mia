@@ -1,9 +1,11 @@
 import requests
+import re
 from datetime import datetime, timedelta
 
 # URL dei due file
 url_events = "https://sportsonline.ci/prog.txt"
 url_channels = "https://sportzonline.site/247.txt"
+url_pepper = "https://pepperlive.info/"
 
 # Scarica prog.txt (eventi)
 print(f"Scarico eventi da: {url_events}")
@@ -20,6 +22,20 @@ if response_channels.status_code != 200:
     print(f"Errore nel download di 247.txt: HTTP {response_channels.status_code}")
     exit(1)
 lines_channels = response_channels.text.strip().splitlines()
+
+# Scarica Pepperlive
+print("Scarico link da Pepperlive...")
+response_pepper = requests.get(url_pepper)
+pepper_links = []
+
+if response_pepper.status_code == 200:
+    matches = re.findall(r'href="(sportp\.php\?id=\d+)"[^>]*>(.*?)<', response_pepper.text)
+
+    for link, name in matches:
+        full_url = "https://pepperlive.info/" + link
+        pepper_links.append((name.strip(), full_url))
+else:
+    print("Errore download Pepperlive")
 
 # Inizia l'HTML
 html = """<!DOCTYPE html>
@@ -43,7 +59,6 @@ button { width: 100%%; padding: 12px; font-size: 14px; font-weight: bold; border
 .btn-channel:hover { filter: brightness(1.1); box-shadow: 0 4px 12px rgba(79, 172, 254, 0.4); }
 h2 { margin-top: 50px; color: #00d2ff; font-size: 22px; text-transform: uppercase; letter-spacing: 1px; border-left: 5px solid #00d2ff; padding-left: 15px; }
 .time { font-size: 16px; color: #00d2ff; font-weight: bold; margin-bottom: 8px; font-family: 'Courier New', monospace; }
-.match-name { color: #ffffff; font-size: 17px; min-height: 40px; display: flex; align-items: center; justify-content: center; }
 </style>
 </head>
 <body>
@@ -66,10 +81,9 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 """
 
-# --- NUOVA SEZIONE EVENTI RAGGRUPPATI ---
+# --- EVENTI ---
 html += "<h2>Eventi</h2>\n<div class='grid'>\n"
 
-# 1. Raggruppiamo i link per nome evento
 eventi_raggruppati = {}
 
 for line in lines_events:
@@ -80,10 +94,10 @@ for line in lines_events:
     left, url = line.split("|", 1)
     name = left.strip().replace('"', "'")
     url = url.strip()
-    
-    # Gestione orario
+
     time_str = ""
     display_name = name
+
     if ":" in name:
         parts = name.split(" ", 1)
         try:
@@ -93,49 +107,73 @@ for line in lines_events:
         except:
             pass
 
-    # Usiamo il nome del match come chiave per raggruppare
     if display_name not in eventi_raggruppati:
         eventi_raggruppati[display_name] = {'ora': time_str, 'links': []}
-    
+
     eventi_raggruppati[display_name]['links'].append(url)
 
-# 2. Generiamo l'HTML usando i dati raggruppati
+
 for nome_match, dati in eventi_raggruppati.items():
-    html += f"<div class='card'>\n"
+
+    html += "<div class='card'>\n"
+
     if dati['ora']:
         html += f"<div class='time'>{dati['ora']}</div>\n"
+
     html += f"<div style='margin-bottom:10px; font-weight:bold;'>{nome_match}</div>\n"
-    
-    # Creiamo un bottone per ogni link trovato per questo match
+
     for i, link in enumerate(dati['links'], 1):
-        html += f"<button class='btn-event' style='margin-bottom:5px;' onclick=\"window.open('{link}', '_blank')\">Link {i}</button>\n"
-    
+        html += f"<button class='btn-event' onclick=\"window.open('{link}', '_blank')\">Link {i}</button>\n"
+
     html += "</div>\n"
 
 html += "</div>\n"
-# --- FINE NUOVA SEZIONE EVENTI ---
-# Sezione Canali
+
+
+# --- CANALI ---
 html += "<h2>Canali TV</h2>\n<div class='grid'>\n"
 
 for line in lines_channels:
+
     line = line.strip()
+
     if not line or "http" not in line:
         continue
 
     if "-" in line:
+
         left, right = line.split("-", 1)
+
         name = left.strip().replace('"', "'")
         url = right.strip()
-        # Aggiorna il dominio al link reale
+
         if url.startswith("http"):
             url = url.replace("sportzonline.site", "sportsonline.cv")
-        html += f"<div class='card'>\n"
+
+        html += "<div class='card'>\n"
         html += f"<button class='btn-channel' onclick=\"window.open('{url}', '_blank')\">{name}</button>\n"
         html += "</div>\n"
-    else:
-        print(f"Riga canale ignorata: {line}")
 
-html += "</div>\n</div></body></html>"
+
+html += "</div>\n"
+
+
+# --- PEPPERLIVE ---
+if pepper_links:
+
+    html += "<h2>Pepperlive</h2>\n<div class='grid'>\n"
+
+    for name, link in pepper_links:
+
+        html += "<div class='card'>\n"
+        html += f"<button class='btn-channel' onclick=\"window.open('{link}', '_blank')\">{name.upper()}</button>\n"
+        html += "</div>\n"
+
+    html += "</div>\n"
+
+
+html += "</div></body></html>"
+
 
 # Scrivi su file
 with open("sportzonline_lista.html", "w", encoding="utf-8") as f:
