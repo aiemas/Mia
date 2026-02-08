@@ -2,24 +2,24 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<title>Test Pepperlive M3U8</title>
+<title>Pepperlive HLS Test</title>
+
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 
 <style>
-body {
+html, body {
     margin: 0;
+    padding: 0;
     background: black;
-    color: white;
-    font-family: Arial, sans-serif;
-    text-align: center;
-}
-
-h2 {
-    margin: 10px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
 video {
     width: 100%;
-    height: 90vh;
+    height: 100%;
+    object-fit: contain;
     background: black;
 }
 </style>
@@ -27,25 +27,34 @@ video {
 
 <body>
 
-<h2>Pepperlive Test Stream</h2>
-
-<video
-    id="player"
-    controls
-    autoplay
-    muted
-    playsinline
->
-    <source src="https://92vhjue8.39564828.net:8443/hls/4yb7dks4.m3u8?s=M64feql1LACnfjm8L0mnzw&e=1770604114" type="application/x-mpegURL">
-</video>
+<video id="video" controls autoplay muted playsinline></video>
 
 <script>
-const video = document.getElementById("player");
+var video = document.getElementById('video');
 
-// Forza play (per TV/Androi
-video.play().catch(e => {
-    console.log("Autoplay bloccato:", e);
-});
+var url = "https://92vhjue8.39564828.net:8443/hls/4yb7dks4.m3u8?s=M64feql1LACnfjm8L0mnzw&e=1770604114";
+
+if (Hls.isSupported()) {
+
+    var hls = new Hls({
+        autoStartLoad: true,
+        enableWorker: true,
+        lowLatencyMode: true
+    });
+
+    hls.loadSource(url);
+    hls.attachMedia(video);
+
+    hls.on(Hls.Events.MANIFEST_PARSED, function() {
+        video.play();
+    });
+
+} else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+
+    // Safari fallback
+    video.src = url;
+    video.play();
+}
 </script>
 
 </body>
