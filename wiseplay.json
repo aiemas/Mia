@@ -1,9 +1,14 @@
-[
-  {
-    "name": "Test Sportzonline",
-    "image": "https://png.pngtree.com/png-vector/20230124/ourmid/pngtree-arrow-icon-3d-play-png-image_6565151.png",
-    "url": "http://ww1.sportzonline.click/channels/hd/hd2.php",
-    "isHost": true,
-    "info": "(test)"
-  }
-]
+{
+  "name": "_SportzonlineWise",
+  "author": "Salva",
+  "image": "https://png.pngtree.com/png-vector/20230124/ourmid/pngtree-arrow-icon-3d-play-png-image_6565151.png",
+  "url": "https://bit.ly/wise_sportzonline",
+  "groups": [
+    {
+      "name": "Sportzonline",
+      "image": "https://png.pngtree.com/png-vector/20230124/ourmid/pngtree-arrow-icon-3d-play-png-image_6565151.png",
+      "url": "https://aiemas.github.io/Mia/wiseplay_channels.json",
+      "import": true
+    }
+  ]
+}
