@@ -23,11 +23,22 @@ if response_channels.status_code != 200:
     exit(1)
 lines_channels = response_channels.text.strip().splitlines()
 
+# Scarica Pepperlive
 print("Scarico Pepperlive...")
-response_pepper = requests.get(url_pepper)
+
+headers = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
+    "Accept-Language": "it-IT,it;q=0.9,en;q=0.8",
+    "Referer": "https://pepperlive.info/"
+}
+
+response_pepper = requests.get(url_pepper, headers=headers, timeout=15)
+
 pepper_html = ""
 if response_pepper.status_code == 200:
     pepper_html = response_pepper.text
+else:
+    print("Pepper non risponde correttamente:", response_pepper.status_code)
 
 
 # ================= PARSE PEPPER NUOVA STRUTTURA =================
