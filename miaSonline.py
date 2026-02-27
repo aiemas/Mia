@@ -2,12 +2,13 @@ import requests
 import re
 from datetime import datetime, timedelta
 
-# URL dei due file
+# URL dei file
 url_events = "https://sportsonline.ci/prog.txt"
 url_channels = "https://sportzonline.site/247.txt"
 url_pepper = "https://pepperlive.info/"
 
-# Scarica prog.txt (eventi)
+# ================= DOWNLOAD FILE =================
+
 print(f"Scarico eventi da: {url_events}")
 response_events = requests.get(url_events)
 if response_events.status_code != 200:
@@ -15,7 +16,6 @@ if response_events.status_code != 200:
     exit(1)
 lines_events = response_events.text.strip().splitlines()
 
-# Scarica 247.txt (canali)
 print(f"Scarico canali da: {url_channels}")
 response_channels = requests.get(url_channels)
 if response_channels.status_code != 200:
@@ -23,7 +23,6 @@ if response_channels.status_code != 200:
     exit(1)
 lines_channels = response_channels.text.strip().splitlines()
 
-# Scarica Pepperlive
 print("Scarico Pepperlive...")
 response_pepper = requests.get(url_pepper)
 pepper_html = ""
@@ -31,55 +30,64 @@ if response_pepper.status_code == 200:
     pepper_html = response_pepper.text
 
 
-# ================= PARSE PEPPER =================
+# ================= PARSE PEPPER NUOVA STRUTTURA =================
 
 pepper_events = []
 
 if pepper_html:
 
-    blocks = re.findall(
-        r'<div class="kode_ticket_text">(.*?)</div>\s*<div class="ticket_btn">(.*?)</div>',
+    cards = re.findall(
+        r'<div class="match-card.*?">(.*?)</div>\s*</div>',
         pepper_html,
         re.S
     )
 
-    for info, links in blocks:
+    for card in cards:
 
-        teams = re.findall(r'<h2>(.*?)</h2>', info)
-        time = re.search(r'<p>(.*?)</p>', info)
-
-        if len(teams) >= 2 and time:
-
-            team1 = teams[0].strip().title()
-            team2 = teams[1].strip().title()
-            hour = time.group(1).strip()
-
-            # +1 ora
+        # ORA
+        time_match = re.search(r'class="ora-txt".*?>(.*?)<', card)
+        hour = ""
+        if time_match:
+            hour = time_match.group(1).strip()
             try:
                 t = datetime.strptime(hour, "%H:%M") + timedelta(hours=1)
                 hour = t.strftime("%H:%M")
             except:
                 pass
 
-            channels = re.findall(
-                r'href="(sportp\.php\?id=[^"]+)".*?>(.*?)<',
-                links
-            )
+        # MATCH
+        teams_match = re.search(r'class="teams-box">(.*?)</div>', card, re.S)
+        if not teams_match:
+            continue
 
-            final_links = []
+        match_name = teams_match.group(1)
+        match_name = re.sub('<.*?>', '', match_name)  # rimuove span VS
+        match_name = match_name.replace("VS", "vs").strip()
 
-            for link, lang in channels:
-                url = "https://pepperlive.info/" + link
-                final_links.append((lang.upper(), url))
+        # LINK
+        channels = re.findall(
+            r'href="(live\.php\?ch=[^"]+)".*?>(.*?)<',
+            card
+        )
 
-            pepper_events.append({
-                "match": f"{team1} vs {team2}",
-                "time": hour,
-                "links": final_links
-            })
+        if not channels:
+            continue
+
+        final_links = []
+
+        for link, label in channels:
+            url = "https://pepperlive.info/" + link
+            final_links.append((label.upper(), url))
+
+        pepper_events.append({
+            "match": match_name,
+            "time": hour,
+            "links": final_links
+        })
 
 
-# Inizia l'HTML
+# ================= HTML =================
+
 html = """<!DOCTYPE html>
 <html>
 <head>
@@ -119,7 +127,8 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 """
 
-# --- EVENTI ---
+# ================= EVENTI SPORTSONLINE =================
+
 html += "<h2>Eventi</h2>\n<div class='grid'>\n"
 
 eventi_raggruppati = {}
@@ -168,7 +177,8 @@ for nome_match, dati in eventi_raggruppati.items():
 html += "</div>\n"
 
 
-# --- CANALI ---
+# ================= CANALI =================
+
 html += "<h2>Canali TV</h2>\n<div class='grid'>\n"
 
 for line in lines_channels:
@@ -192,11 +202,11 @@ for line in lines_channels:
         html += f"<button class='btn-channel' onclick=\"window.open('{url}', '_blank')\">{name}</button>\n"
         html += "</div>\n"
 
-
 html += "</div>\n"
 
 
-# --- PEPPERLIVE ---
+# ================= PEPPERLIVE =================
+
 if pepper_events:
 
     html += "<h2>Pepperlive</h2>\n<div class='grid'>\n"
@@ -205,23 +215,22 @@ if pepper_events:
 
         html += "<div class='card'>\n"
 
-        html += f"<div class='time'>{ev['time']}</div>\n"
+        if ev['time']:
+            html += f"<div class='time'>{ev['time']}</div>\n"
 
         html += f"<div style='margin-bottom:10px; font-weight:bold;'>{ev['match']}</div>\n"
 
-        for lang, link in ev['links']:
-
-            html += f"<button class='btn-event' onclick=\"window.open('{link}', '_blank')\">{lang}</button>\n"
+        for label, link in ev['links']:
+            html += f"<button class='btn-event' onclick=\"window.open('{link}', '_blank')\">{label}</button>\n"
 
         html += "</div>\n"
 
     html += "</div>\n"
 
-
 html += "</div></body></html>"
 
+# ================= SCRITTURA FILE =================
 
-# Scrivi su file
 with open("sportzonline_lista.html", "w", encoding="utf-8") as f:
     f.write(html)
 
