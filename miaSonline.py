@@ -87,7 +87,16 @@ if pepper_html:
         final_links = []
 
         for link, label in channels:
-            url = "https://pepperlive.info/" + link
+
+            # Trasforma live.php?ch=7 -> sportp.php?id=7
+            if link.startswith("live.php?ch="):
+                channel_id = link.split("live.php?ch=")[1]
+                new_link = f"sportp.php?id={channel_id}"
+                url = "https://pepperlive.info/" + new_link
+            else:
+                # Non toccare altri link (warp, premium, ecc.)
+                url = "https://pepperlive.info/" + link
+
             final_links.append((label.upper(), url))
 
         pepper_events.append({
