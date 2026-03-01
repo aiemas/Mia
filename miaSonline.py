@@ -88,13 +88,19 @@ if pepper_html:
 
         for link, label in channels:
 
-            # Trasforma live.php?ch=7 -> sportp.php?id=7
             if link.startswith("live.php?ch="):
-                channel_id = link.split("live.php?ch=")[1]
-                new_link = f"sportp.php?id={channel_id}"
-                url = "https://pepperlive.info/" + new_link
+
+                # Estrae solo il numero finale
+                match_id = re.search(r'live\.php\?ch=.*?(\d+)', link)
+
+                if match_id:
+                    channel_id = match_id.group(1)
+                    url = f"https://pepperlive.info/sportp.php?id={channel_id}"
+                else:
+                    url = "https://pepperlive.info/" + link
+
             else:
-                # Non toccare altri link (warp, premium, ecc.)
+                # Non toccare warp, premium ecc.
                 url = "https://pepperlive.info/" + link
 
             final_links.append((label.upper(), url))
