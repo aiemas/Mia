@@ -22,6 +22,11 @@ h2 { margin-top: 50px; color: #00d2ff; font-size: 22px; border-left: 5px solid #
 <div class="container">
 <input type="text" id="searchInput" placeholder="Cerca evento o canale...">
 
+<div style="margin-bottom:20px;">
+<button onclick="toggleSection('pepper')" style="margin-right:10px;">Pepperlive</button>
+<button onclick="toggleSection('sportsonline')">Sportsonline</button>
+</div>
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
   const searchInput = document.getElementById('searchInput');
@@ -34,8 +39,23 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 });
+<script>
+function toggleSection(section) {
+
+    const pepper = document.getElementById("pepper_section");
+    const sport = document.getElementById("sport_section");
+
+    if(section === "pepper"){
+        pepper.style.display = pepper.style.display === "none" ? "block" : "none";
+    }
+
+    if(section === "sportsonline"){
+        sport.style.display = sport.style.display === "none" ? "block" : "none";
+    }
+
+}
 </script>
-<h2>Eventi</h2>
+<div id='sport_section'><h2>Eventi</h2>
 <div class='grid'>
 <div class='card'>
 <div class='time'>01:00</div>
@@ -984,8 +1004,8 @@ document.addEventListener("DOMContentLoaded", function() {
 <div class='card'>
 <button class='btn-channel' onclick="window.open('https://sportzonline.click/channels/pt/btv.php', '_blank')">PORTUGUESE BENFICA TV/BTV</button>
 </div>
-</div>
-<h2>Pepperlive</h2>
+</div></div>
+<div id='pepper_section'><h2>Pepperlive</h2>
 <div class='grid'>
 <div class='card'>
 <div class='time'>20:30</div>
