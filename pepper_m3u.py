@@ -3,13 +3,13 @@ import re
 
 base = "https://pepperlive.info"
 
-channels = range(1,120)
-
 headers = {
-"User-Agent":"Mozilla/5.0"
+    "User-Agent": "Mozilla/5.0"
 }
 
-m3u = "#EXTM3U\n"
+channels = range(1,150)
+
+streams = {}
 
 for ch in channels:
 
@@ -17,26 +17,41 @@ for ch in channels:
 
     try:
 
-        r = requests.get(url,headers=headers,timeout=10)
+        r = requests.get(url, headers=headers, timeout=10)
 
         if r.status_code != 200:
             continue
 
         source = r.text
 
-        m3u8 = re.search(r'https://[^"]+\.m3u8[^"]*',source)
+        # trova tutti gli m3u8
+        links = re.findall(r'https://[^\'"]+\.m3u8[^\'"]*', source)
 
-        if m3u8:
+        for link in links:
 
-            stream = m3u8.group(0)
+            # nome stream basato su id
+            stream_id = re.search(r'/stream/(\d+)/', link)
 
-            m3u += f'#EXTINF:-1,Pepper {ch}\n'
-            m3u += stream + "\n"
+            if stream_id:
+                name = f"Pepper_{stream_id.group(1)}"
+            else:
+                name = f"Pepper_{ch}"
 
-            print("trovato",ch)
+            streams[name] = link
 
     except:
         pass
 
-with open("cazzimiei.m3u","w") as f:
+
+m3u = "#EXTM3U\n"
+
+for name, link in streams.items():
+
+    m3u += f'#EXTINF:-1,{name}\n'
+    m3u += link + "\n"
+
+
+with open("cazzimiei.m3u", "w") as f:
     f.write(m3u)
+
+print("Creati", len(streams), "stream")
