@@ -138,6 +138,11 @@ h2 { margin-top: 50px; color: #00d2ff; font-size: 22px; border-left: 5px solid #
 <div class="container">
 <input type="text" id="searchInput" placeholder="Cerca evento o canale...">
 
+<div style="margin-bottom:20px;">
+<button onclick="toggleSection('pepper')" style="margin-right:10px;">Pepperlive</button>
+<button onclick="toggleSection('sportsonline')">Sportsonline</button>
+</div>
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
   const searchInput = document.getElementById('searchInput');
@@ -150,12 +155,27 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 });
+<script>
+function toggleSection(section) {
+
+    const pepper = document.getElementById("pepper_section");
+    const sport = document.getElementById("sport_section");
+
+    if(section === "pepper"){
+        pepper.style.display = pepper.style.display === "none" ? "block" : "none";
+    }
+
+    if(section === "sportsonline"){
+        sport.style.display = sport.style.display === "none" ? "block" : "none";
+    }
+
+}
 </script>
 """
 
 # ================= EVENTI SPORTSONLINE =================
 
-html += "<h2>Eventi</h2>\n<div class='grid'>\n"
+html += "<div id='sport_section'><h2>Eventi</h2>\n<div class='grid'>\n"
 
 eventi_raggruppati = {}
 
@@ -228,14 +248,14 @@ for line in lines_channels:
         html += f"<button class='btn-channel' onclick=\"window.open('{url}', '_blank')\">{name}</button>\n"
         html += "</div>\n"
 
-html += "</div>\n"
+html += "</div></div>\n"
 
 
 # ================= PEPPERLIVE =================
 
 if pepper_events:
 
-    html += "<h2>Pepperlive</h2>\n<div class='grid'>\n"
+    html += "<div id='pepper_section'><h2>Pepperlive</h2>\n<div class='grid'>\n"
 
     for ev in pepper_events:
 
