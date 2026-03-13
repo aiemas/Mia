@@ -6,28 +6,22 @@
 
 <style>
 body{
-    font-family: Arial, sans-serif;
-    text-align:center;
     background:#111;
     color:white;
+    text-align:center;
+    font-family:Arial;
     padding-top:100px;
 }
 
 button{
     padding:15px 30px;
     font-size:20px;
-    border:none;
-    border-radius:8px;
     background:#e50914;
     color:white;
-    cursor:pointer;
+    border:none;
+    border-radius:8px;
 }
 
-button:hover{
-    background:#b20710;
-}
-
-/* overlay player */
 #playerBox{
     display:none;
     position:fixed;
@@ -38,7 +32,6 @@ button:hover{
     background:black;
     border-radius:10px;
     overflow:hidden;
-    box-shadow:0 0 20px rgba(0,0,0,0.7);
 }
 
 #playerBox iframe{
@@ -46,43 +39,28 @@ button:hover{
     height:100%;
     border:none;
 }
-
-#closeBtn{
-    position:absolute;
-    top:5px;
-    right:8px;
-    background:red;
-    border:none;
-    color:white;
-    font-size:14px;
-    cursor:pointer;
-    padding:3px 8px;
-    border-radius:5px;
-}
 </style>
 </head>
 
 <body>
 
-<h1>Pagina Test Stream</h1>
-
-<button onclick="openPlayer()">Guarda Canale</button>
+<button onclick="play()">Apri Stream</button>
 
 <div id="playerBox">
-    <button id="closeBtn" onclick="closePlayer()">X</button>
-    <iframe src="" id="playerFrame" allowfullscreen></iframe>
+<iframe id="player"
+allow="autoplay; fullscreen; picture-in-picture"
+allowfullscreen
+referrerpolicy="no-referrer">
+</iframe>
 </div>
 
 <script>
-function openPlayer(){
-    document.getElementById("playerBox").style.display="block";
-    document.getElementById("playerFrame").src="https://dlstreams.top/embed/stream-468.php?";
+
+function play(){
+document.getElementById("playerBox").style.display="block";
+document.getElementById("player").src="https://dlstreams.top/embed/stream-468.php?";
 }
 
-function closePlayer(){
-    document.getElementById("playerBox").style.display="none";
-    document.getElementById("playerFrame").src="";
-}
 </script>
 
 </body>
