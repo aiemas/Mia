@@ -351,7 +351,8 @@ html+="</div></div>"
 
 # ================= CANALI =================
 
-html+="<h2>Canali TV</h2><div class='grid'>"
+html += "<div id='channels_section' style='display:none'>"
+html += "<h2>Canali TV</h2><div class='grid'>"
 
 for line in lines_channels:
 
@@ -369,8 +370,7 @@ for line in lines_channels:
     html+=f"<button class='btn-channel' onclick=\"window.open('{url}')\">{name}</button>"
     html+="</div>"
 
-html+="</div>"
-
+html+="</div></div>"
 # ================= PEPPER =================
 
 html += "<div id='pepper_section' style='display:none'>"
