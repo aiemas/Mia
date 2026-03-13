@@ -114,18 +114,19 @@ html = """<!DOCTYPE html>
 <style>
 
 body{
-font-family:Segoe UI;
+font-family:Segoe UI,Arial;
 background:#0a0b10;
 color:white;
 margin:0;
 }
 
 header{
-background:#111;
+background:linear-gradient(90deg,#0f2027,#203a43,#2c5364);
 padding:25px;
 text-align:center;
-font-size:26px;
+font-size:28px;
 font-weight:bold;
+letter-spacing:1px;
 }
 
 .container{
@@ -140,8 +141,33 @@ padding:14px;
 margin-bottom:25px;
 border-radius:10px;
 border:none;
-background:#222;
+background:#1a1a2e;
 color:white;
+font-size:15px;
+}
+
+.section-buttons{
+display:flex;
+gap:15px;
+margin-bottom:25px;
+flex-wrap:wrap;
+}
+
+.section-buttons button{
+flex:1;
+padding:14px;
+border:none;
+border-radius:10px;
+font-weight:bold;
+font-size:16px;
+cursor:pointer;
+background:linear-gradient(90deg,#00d2ff,#3a7bd5);
+color:white;
+transition:0.2s;
+}
+
+.section-buttons button:hover{
+transform:scale(1.05);
 }
 
 .grid{
@@ -155,6 +181,7 @@ background:#1a1a2e;
 padding:18px;
 border-radius:12px;
 text-align:center;
+box-shadow:0 0 8px rgba(0,0,0,0.6);
 }
 
 button{
@@ -193,40 +220,55 @@ margin-top:40px;
 
 function toggleSection(id){
 
-var el = document.getElementById(id);
+var el=document.getElementById(id)
 
-if(el.style.display === "none"){
-el.style.display="block";
+if(el.style.display==="none"){
+el.style.display="block"
+localStorage.setItem("open_section",id)
 }else{
-el.style.display="none";
+el.style.display="none"
+localStorage.removeItem("open_section")
+}
+
+}
+
+window.onload=function(){
+
+var saved=localStorage.getItem("open_section")
+
+if(saved){
+var el=document.getElementById(saved)
+if(el){
+el.style.display="block"
+}
 }
 
 }
 
 document.addEventListener("DOMContentLoaded",function(){
 
-var input=document.getElementById("searchInput");
+var input=document.getElementById("searchInput")
 
 input.addEventListener("input",function(){
 
-var filter=input.value.toLowerCase();
-var cards=document.querySelectorAll(".card");
+var filter=input.value.toLowerCase()
+var cards=document.querySelectorAll(".card")
 
 cards.forEach(function(card){
 
-var text=card.textContent.toLowerCase();
+var text=card.textContent.toLowerCase()
 
 if(text.includes(filter)){
-card.style.display="";
+card.style.display=""
 }else{
-card.style.display="none";
+card.style.display="none"
 }
 
-});
+})
 
-});
+})
 
-});
+})
 
 </script>
 
@@ -240,11 +282,13 @@ card.style.display="none";
 
 <input type="text" id="searchInput" placeholder="Cerca evento o canale">
 
-<div style="margin-bottom:20px;">
+<div class="section-buttons">
 
-<button onclick="toggleSection('sport_section')">Sportsonline</button>
+<button onclick="toggleSection('sport_section')">⚽ Sportsonline</button>
 
-<button onclick="toggleSection('pepper_section')">Pepperlive</button>
+<button onclick="toggleSection('pepper_section')">📺 Pepperlive</button>
+
+<button onclick="toggleSection('channels_section')">📡 Canali</button>
 
 </div>
 """
