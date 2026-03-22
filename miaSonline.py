@@ -47,7 +47,7 @@ pepper_events = []
 if pepper_html:
 
     cards = re.findall(
-        r'<div class="match-card.*?">(.*?)</div>\s*</div>',
+        r'<div class="[^"]*match[^"]*">(.*?)</div>\s*</div>',
         pepper_html,
         re.S
     )
