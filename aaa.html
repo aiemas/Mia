@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Test Player</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.5/shaka-player.compiled.js"></script>
+
+<style>
+
+body{
+background:#0a0b10;
+color:white;
+font-family:Arial;
+text-align:center;
+padding:30px;
+}
+
+video{
+width:90%;
+max-width:900px;
+margin-top:20px;
+border-radius:10px;
+background:black;
+}
+
+button{
+padding:14px 25px;
+font-size:16px;
+border:none;
+border-radius:8px;
+background:#00d2ff;
+color:black;
+font-weight:bold;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Player Test</h2>
+
+<button onclick="start()">Avvia Stream</button>
+
+<br>
+
+<video id="video" controls autoplay></video>
+
+<script>
+
+async function start(){
+
+const url="https://chevy.soyspace.cyou/proxy/nfs/premium877/mono.css"
+
+const video=document.getElementById("video")
+
+const player=new shaka.Player(video)
+
+try{
+
+await player.load(url)
+
+console.log("Stream avviato")
+
+}catch(e){
+
+console.error(e)
+alert("Errore nel player")
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
