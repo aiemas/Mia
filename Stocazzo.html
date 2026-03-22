@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Test MPD Player</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.3.5/shaka-player.compiled.js"></script>
+
+<style>
+body {
+  background: #0a0b10;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 30px;
+}
+
+video {
+  width: 90%;
+  max-width: 900px;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+button {
+  padding: 14px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background: #00d2ff;
+  cursor: pointer;
+  color: #000;
+  font-weight: bold;
+}
+</style>
+
+</head>
+<body>
+
+<h2>Test MPD Player</h2>
+
+<button onclick="play()">Avvia Stream</button>
+
+<br>
+
+<video id="video" controls autoplay></video>
+
+<script>
+async function play() {
+  const url = "https://g006-lin-it-cmaf-prd-sn.pcdn07.cssott02.com/v~1-0-0_e~1774193966_f~0_g~1_s~8397eab0-4a5a-47b0-869d-4688c72102e4_u~fe423816729b2d0721877d76cb5fec61bc8b08906e5753a17738415918ac29d62bf11af71d79aa03c36506222ca810be_k~A_l~57_x~d754353be36f0e205206fd5c0c35dd67/nowitlin2/Content/CMAF_CTR_H1/Live/channel(skysport251)/master_2hr-all.mpd";
+
+  const video = document.getElementById("video");
+  const player = new shaka.Player(video);
+
+  try {
+    await player.load(url);
+    console.log("📺 Stream avviato correttamente!");
+  } catch (e) {
+    console.error("❌ Errore nel caricamento:", e);
+    alert("❌ Lo stream non è riproducibile qui.");
+  }
+}
+</script>
+
+</body>
+</html>
