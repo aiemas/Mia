@@ -36,11 +36,18 @@ headers = {
     "Referer": "https://pepperlive.info/"
 }
 
-response_pepper = requests.get(url_pepper, headers=headers)
-
 pepper_html = ""
-if response_pepper.status_code == 200:
-    pepper_html = response_pepper.text
+
+try:
+    response_pepper = requests.get(url_pepper, headers=headers, timeout=10)
+
+    if response_pepper.status_code == 200:
+        pepper_html = response_pepper.text
+    else:
+        print("Pepperlive non risponde")
+
+except Exception as e:
+    print("Pepperlive non disponibile:", e)
 
 pepper_events = []
 
