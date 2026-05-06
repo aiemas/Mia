@@ -3,7 +3,7 @@ import re
 from datetime import datetime, timedelta
 
 # URL dei file
-url_events = "https://sportsonline.ci/prog.txt"
+url_events = "https://sportsonline.vc/prog.txt"
 url_channels = "https://sportzonline.site/247.txt"
 url_pepper = "https://pepperlive.info/"
 
