@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 
 # URL dei file
 url_events = "https://sportsonline.vc/prog.txt"
-url_channels = "https://sportzonline.site/247.txt"
+url_channels = "https://w1.sportsonlinee.click//247.txt"
 url_pepper = "https://pepperlive.info/"
 
 # ================= DOWNLOAD FILE =================
